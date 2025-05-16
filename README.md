@@ -1,2 +1,2 @@
-# classmate
+# ClassMate
 A platform that allows educators to store and manage learners' information in one place.
