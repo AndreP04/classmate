@@ -2,5 +2,14 @@
   "dependencies": {
     "mongodb": "^6.16.0",
     "mongoose": "^8.15.0"
-  }
+  },
+  "name": "classmate",
+  "version": "1.0.0",
+  "description": "A platform that allows educators to store and manage learners' information in one place.\r Set up file structure",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andre Pretorius",
+  "license": "MIT"
 }
