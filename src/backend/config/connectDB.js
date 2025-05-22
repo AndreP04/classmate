@@ -6,13 +6,9 @@ import mongoose from 'mongoose';
  */
 const connectDB = async (mongoURI) => {
 
-        mongoose.connect(mongoURI, 
-            {
-                useNewUrlParser: true,
-                useUnifiedTopology: true
-            })
+        mongoose.connect(mongoURI)
             .then(() => console.info("Mongo database connected successfully."))
-            .catch(err => console.error(`Failed to connect to Mongo database: ${error}`));
+            .catch(err => console.error(`Failed to connect to Mongo database: ${err}`));
 }
 
 export { connectDB };
