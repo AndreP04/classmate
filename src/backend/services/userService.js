@@ -13,12 +13,38 @@ const createUser = async (userData) => {
         userData.password = hashedPW;
 
         const user = new userModel(userData);
-        const newUser = await user.save();
-        return newUser;
+
+        if (await user.findOne({ username })) {
+            throw new Error('This username is not available');
+        }
+
+        return await user.save();
     } catch (err) {
         console.error(`Failed to create new user: ${err}`);
     }
 }
 
 
-export { createUser };
+/**
+ * Service to log in an existing user
+ * @param {*} username - User's username
+ * @param {*} password - User's password
+ * @returns True or false based on success
+ */
+const loginUser = async (username, password) => {
+    try {
+        const user = await userModel.findOne({ username, password });
+
+        if (user.username !== username || user.password !== password) {
+            console.error('Invalid username or password');
+            return false;
+        }
+
+        return true;
+    } catch (err) {
+        console.error(`Login failed: ${err}`);
+    }
+}
+
+
+export { createUser, loginUser };
