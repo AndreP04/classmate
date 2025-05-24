@@ -1,4 +1,5 @@
 import { userModel } from '../models/userModel.js';
+import bcrypt from 'bcrypt';
 
 /**
  * Service to register a new user
@@ -7,6 +8,10 @@ import { userModel } from '../models/userModel.js';
  */
 const createUser = async (userData) => {
     try {
+        // Hash password
+        const hashedPW = await bcrypt.hash(userData.password, 10);
+        userData.password = hashedPW;
+
         const user = new userModel(userData);
         const newUser = await user.save();
         return newUser;

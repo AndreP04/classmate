@@ -5,7 +5,7 @@ import { createUser } from '../services/userService.js';
  */
 const registerUser = async (req, res) => {
     const newUser = await createUser(req.body);
-    res.status(201).json("New user registered successfully.");
+    res.status(201).json(`New user, ${newUser.firstName}, register successfully.`);
 };
 
 export { registerUser };
