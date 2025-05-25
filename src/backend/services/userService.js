@@ -8,43 +8,53 @@ import bcrypt from 'bcrypt';
  */
 const createUser = async (userData) => {
     try {
+        if (!userData?.username || !userData?.password) {
+            throw new Error('Username and password are required');
+        }
+
+        // Check if user exists with username
+        if (await userModel.findOne({ username: userData.username })) {
+            throw new Error('This username is not available');
+        }
+
         // Hash password
         const hashedPW = await bcrypt.hash(userData.password, 10);
         userData.password = hashedPW;
 
         const user = new userModel(userData);
-
-        if (await user.findOne({ username })) {
-            throw new Error('This username is not available');
-        }
-
         return await user.save();
     } catch (err) {
-        console.error(`Failed to create new user: ${err}`);
+        console.error(`Failed to create new user: ${err.message}`);
     }
 }
 
 
 /**
  * Service to log in an existing user
- * @param {*} username - User's username
- * @param {*} password - User's password
- * @returns True or false based on success
+ * @param {string} username - User's username
+ * @param {string} password - User's password
+ * @returns {boolean} True or false based on success
  */
 const loginUser = async (username, password) => {
     try {
-        const user = await userModel.findOne({ username, password });
+        const user = await userModel.findOne({ username });
+        if (!user) {
+            console.error('User not found');
+            return false;
+        }
 
-        if (user.username !== username || user.password !== password) {
-            console.error('Invalid username or password');
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            console.error('Invalid password');
             return false;
         }
 
         return true;
     } catch (err) {
-        console.error(`Login failed: ${err}`);
+        console.error(`Login failed: ${err.message}`);
+        return false;
     }
-}
+};
 
 
 export { createUser, loginUser };

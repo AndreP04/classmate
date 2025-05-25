@@ -5,9 +5,20 @@ import { createUser, loginUser } from '../services/userService.js';
  * @param {*} req - Request
  * @param {*} res - Response
  */
-const registerUser = async (req, res) => {
-    const newUser = await createUser(req.body);
-    res.status(201).json(`New user, ${newUser.firstName}, register successfully.`);
+const register = async (req, res) => {
+    try {
+        const newUser = await createUser(req.body);
+        res.status(201).json({
+            message: 'User registered successfully',
+            user: {
+                username: newUser.username,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName
+            }
+        });
+    } catch {
+        res.status(500).json('User registration failed');
+    }
 };
 
 /**
@@ -16,11 +27,22 @@ const registerUser = async (req, res) => {
  * @param {*} res - Response
  */
 const login = async (req, res) => {
-    if (await loginUser(req.body) == true) {
-        res.status(404).json('Invalid username or password');
-    } else {
-        res.status(200).json('Login successful');
-    }
-}
+    try {
+        const { username, password} = req.body;
 
-export { registerUser, login };
+        if (!username || !password) {
+            return res.status(400).json('Username and password are required');
+        }
+
+        const isAuthenticated = await loginUser(username, password);
+        if (!isAuthenticated) {
+            return res.status(401).json('Invalid username or password');
+        }
+
+        res.status(200).json('Login successful');
+    } catch {
+        res.status(500).json('User login failed');
+    }
+};
+
+export { register, login };
