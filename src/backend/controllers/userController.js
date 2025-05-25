@@ -1,4 +1,5 @@
 import { createUser, loginUser } from '../services/userService.js';
+import { validateEmail } from '../utils/validation.js';
 
 /**
  * Register a new user
@@ -8,12 +9,18 @@ import { createUser, loginUser } from '../services/userService.js';
 const register = async (req, res) => {
     try {
         const newUser = await createUser(req.body);
+
+        // Email validation
+        await validateEmail(newUser.email);
+
         res.status(201).json({
             message: 'User registered successfully',
             user: {
                 username: newUser.username,
                 firstName: newUser.firstName,
-                lastName: newUser.lastName
+                lastName: newUser.lastName,
+                emailAddress: newUser.email,
+                role: newUser.role
             }
         });
     } catch {
