@@ -65,7 +65,7 @@ const loginUser = async (username, password) => {
 
 
 /**
- * 
+ * Service to delete an existing user
  * @param {*} username - Username of the user
  * @returns - Message indicating deletion success
  */
@@ -84,6 +84,5 @@ const deleteUser = async (username) => {
         console.error(`Failed to delete user: ${err.message}`);
     }
 };
-
 
 export { createUser, loginUser, deleteUser };

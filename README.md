@@ -4,7 +4,6 @@ A platform that allows educators to store and manage learners' information in on
 ToDo:
 
 Endpoints:
---> Delete user Test
 --> Search user (regex)
 --> Forgot/Reset password
 --> Optimize speed of responses
@@ -12,4 +11,7 @@ Endpoints:
 General:
 --> JWT tokens
 --> RBAC
---> Add admin role
+--> Add admin role\
+
+Tests:
+--> Unit tests

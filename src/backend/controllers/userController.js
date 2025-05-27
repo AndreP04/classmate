@@ -31,7 +31,7 @@ const register = async (req, res) => {
  */
 const login = async (req, res) => {
     try {
-        const { username, password} = req.body;
+        const { username, password } = req.body;
 
         if (!username || !password) {
             return res.status(400).json('Username and password are required');
@@ -47,8 +47,30 @@ const login = async (req, res) => {
     }
 };
 
+/**
+ * Delete an existing user
+ * @param {*} req - Request
+ * @param {*} res - Response
+ * @returns 
+ */
 const remove = async (req, res) => {
-    
+    try {
+        const { username } = req.body;
+
+        if (!username) {
+            return res.status(400).json('Username is required');
+        }
+
+        const result = await deleteUser( username );
+        if (result) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+
+    } catch {
+        res.status(500).json({ error: 'User deletion failed' });
+    }
 };
 
-export { register, login };
+export { register, login, remove };
