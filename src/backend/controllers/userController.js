@@ -1,4 +1,4 @@
-import { createUser, loginUser } from '../services/userService.js';
+import { createUser, loginUser, deleteUser } from '../services/userService.js';
 
 /**
  * Register a new user
@@ -45,6 +45,10 @@ const login = async (req, res) => {
     } catch {
         res.status(500).json('User login failed');
     }
+};
+
+const remove = async (req, res) => {
+    
 };
 
 export { register, login };

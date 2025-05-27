@@ -64,4 +64,26 @@ const loginUser = async (username, password) => {
 };
 
 
-export { createUser, loginUser };
+/**
+ * 
+ * @param {*} username - Username of the user
+ * @returns - Message indicating deletion success
+ */
+const deleteUser = async (username) => {
+    try {
+        const user = await userModel.findOne({ username });
+
+        //If the user doesn't exist, throw an error
+        if (!user) {
+            throw new Error('Specified user not found');
+        }
+
+        await userModel.deleteOne({ username });
+        return { message: 'User deleted successfully' };
+    } catch (err) {
+        console.error(`Failed to delete user: ${err.message}`);
+    }
+};
+
+
+export { createUser, loginUser, deleteUser };

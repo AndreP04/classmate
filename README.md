@@ -4,13 +4,12 @@ A platform that allows educators to store and manage learners' information in on
 ToDo:
 
 Endpoints:
---> Fix user still created even if username exists
---> Add admin role
---> Move all validation to validation.js
---> Delete user
+--> Delete user Test
 --> Search user (regex)
 --> Forgot/Reset password
+--> Optimize speed of responses
 
 General:
 --> JWT tokens
 --> RBAC
+--> Add admin role
