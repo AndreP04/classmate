@@ -1,4 +1,6 @@
+
 import { userModel } from '../models/userModel.js';
+import { validateEmail } from '../utils/validation.js';
 import bcrypt from 'bcrypt';
 
 /**
@@ -16,6 +18,11 @@ const createUser = async (userData) => {
         if (await userModel.findOne({ username: userData.username })) {
             throw new Error('This username is not available');
         }
+
+        // Email validation
+        if (!await validateEmail(userData.email)) {
+            throw new Error('Invalid email address');
+        };
 
         // Hash password
         const hashedPW = await bcrypt.hash(userData.password, 10);

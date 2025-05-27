@@ -4,7 +4,6 @@ A platform that allows educators to store and manage learners' information in on
 ToDo:
 
 Endpoints:
---> Fix email validation
 --> Fix user still created even if username exists
 --> Add admin role
 --> Move all validation to validation.js

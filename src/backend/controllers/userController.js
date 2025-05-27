@@ -1,5 +1,4 @@
 import { createUser, loginUser } from '../services/userService.js';
-import { validateEmail } from '../utils/validation.js';
 
 /**
  * Register a new user
@@ -10,10 +9,7 @@ const register = async (req, res) => {
     try {
         const newUser = await createUser(req.body);
 
-        // Email validation
-        await validateEmail(newUser.email);
-
-        res.status(201).json({
+        return res.status(201).json({
             message: 'User registered successfully',
             user: {
                 username: newUser.username,
@@ -41,8 +37,7 @@ const login = async (req, res) => {
             return res.status(400).json('Username and password are required');
         }
 
-        const isAuthenticated = await loginUser(username, password);
-        if (!isAuthenticated) {
+        if (!await loginUser(username, password)) {
             return res.status(401).json('Invalid username or password');
         }
 

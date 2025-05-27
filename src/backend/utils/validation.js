@@ -4,8 +4,10 @@
  */
 const validateEmail = async (email) => {
     if (!email.includes("@") || !email.includes(".")) {
-        throw new Error('Email address format is incorrect');
+        return false;
     }
+
+    return true;
 };
 
 export { validateEmail };
