@@ -33,7 +33,7 @@ const createUser = async (userData) => {
     } catch (err) {
         console.error(`Failed to create new user: ${err.message}`);
     }
-}
+};
 
 
 /**
