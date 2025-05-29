@@ -11,7 +11,7 @@ Endpoints:
 General:
 --> JWT tokens
 --> RBAC
---> Add admin role\
+--> Add admin role
 
 Tests:
 --> Unit tests
