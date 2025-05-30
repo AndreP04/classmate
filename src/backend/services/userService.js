@@ -3,13 +3,13 @@ import { userModel } from '../models/userModel.js';
 import { validateEmail } from '../utils/validation.js';
 import bcrypt from 'bcrypt';
 
+
 /**
  * Service to register a new user
  * @param {*} userData - Stores the user's data
  * @returns Newly created user
  */
 const createUser = async (userData) => {
-
     if (!userData?.username || !userData?.password) {
         throw new Error('Username and password are required');
     }
@@ -40,7 +40,6 @@ const createUser = async (userData) => {
  * @returns {boolean} True or false based on success
  */
 const loginUser = async (username, password) => {
-    
     const user = await userModel.findOne({ username });
     if (!user) {
         console.error('User not found');
@@ -63,7 +62,6 @@ const loginUser = async (username, password) => {
  * @returns - Message indicating deletion success
  */
 const deleteUser = async (username) => {
-    
     const user = await userModel.findOne({ username });
 
     //If the user doesn't exist, throw an error

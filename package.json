@@ -11,12 +11,14 @@
   "description": "A platform that allows educators to store and manage learners' information in one place.\r Set up file structure",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "mocha"
   },
   "author": "Andre Pretorius",
   "license": "MIT",
   "type": "module",
   "devDependencies": {
-    "jest": "^29.7.0"
+    "chai": "^5.2.0",
+    "mocha": "^11.5.0",
+    "sinon": "^20.0.0"
   }
 }
