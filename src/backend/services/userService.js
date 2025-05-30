@@ -9,30 +9,27 @@ import bcrypt from 'bcrypt';
  * @returns Newly created user
  */
 const createUser = async (userData) => {
-    try {
-        if (!userData?.username || !userData?.password) {
-            throw new Error('Username and password are required');
-        }
 
-        // Check if user exists with username
-        if (await userModel.findOne({ username: userData.username })) {
-            throw new Error('This username is not available');
-        }
-
-        // Email validation
-        if (!await validateEmail(userData.email)) {
-            throw new Error('Invalid email address');
-        };
-
-        // Hash password
-        const hashedPW = await bcrypt.hash(userData.password, 10);
-        userData.password = hashedPW;
-
-        const user = new userModel(userData);
-        return await user.save();
-    } catch (err) {
-        console.error(`Failed to create new user: ${err.message}`);
+    if (!userData?.username || !userData?.password) {
+        throw new Error('Username and password are required');
     }
+
+    // Check if user exists with username
+    if (await userModel.findOne({ username: userData.username })) {
+        throw new Error('This username is not available');
+    }
+
+    // Email validation
+    if (!await validateEmail(userData.email)) {
+        throw new Error('Invalid email address');
+    };
+
+    // Hash password
+    const hashedPW = await bcrypt.hash(userData.password, 10);
+    userData.password = hashedPW;
+
+    const user = new userModel(userData);
+    return await user.save();
 };
 
 
@@ -43,24 +40,20 @@ const createUser = async (userData) => {
  * @returns {boolean} True or false based on success
  */
 const loginUser = async (username, password) => {
-    try {
-        const user = await userModel.findOne({ username });
-        if (!user) {
-            console.error('User not found');
-            return false;
-        }
-
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            console.error('Invalid password');
-            return false;
-        }
-
-        return true;
-    } catch (err) {
-        console.error(`Login failed: ${err.message}`);
+    
+    const user = await userModel.findOne({ username });
+    if (!user) {
+        console.error('User not found');
         return false;
     }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        console.error('Invalid password');
+        return false;
+    }
+
+    return true;
 };
 
 
@@ -70,19 +63,16 @@ const loginUser = async (username, password) => {
  * @returns - Message indicating deletion success
  */
 const deleteUser = async (username) => {
-    try {
-        const user = await userModel.findOne({ username });
+    
+    const user = await userModel.findOne({ username });
 
-        //If the user doesn't exist, throw an error
-        if (!user) {
-            throw new Error('Specified user not found');
-        }
-
-        await userModel.deleteOne({ username });
-        return { message: 'User deleted successfully' };
-    } catch (err) {
-        console.error(`Failed to delete user: ${err.message}`);
+    //If the user doesn't exist, throw an error
+    if (!user) {
+        throw new Error('Specified user not found');
     }
+
+    await userModel.deleteOne({ username });
+    return { message: 'User deleted successfully' };
 };
 
 export { createUser, loginUser, deleteUser };
