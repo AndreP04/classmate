@@ -87,7 +87,7 @@ const resetPW = async (req, res) => {
             message: result.message
         });
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(500).json({ message: err.message });
     }
 };
 

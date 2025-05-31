@@ -1,6 +1,6 @@
 
 import { userModel } from '../models/userModel.js';
-import { validateEmail } from '../utils/validation.js';
+import { validateEmail, validatePassword } from '../utils/validation.js';
 import bcrypt from 'bcrypt';
 
 
@@ -23,6 +23,11 @@ const createUser = async (userData) => {
     if (!await validateEmail(userData.email)) {
         throw new Error('Invalid email address');
     };
+
+    // Password validation
+    if (!await validatePassword(userData.password)) {
+        throw new Error('A password of 8 or more characters is required');
+    }
 
     // Hash password
     const hashedPW = await bcrypt.hash(userData.password, 10);
@@ -85,6 +90,11 @@ const resetPassword = async (email, newPW) => {
     if (!user) {
         throw new Error('User not found');
     }
+
+    // Password validation
+    if (!await validatePassword(newPW)) {
+        throw new Error('A new password of 8 or more characters is required');
+    } 
 
     const hashedPW = await bcrypt.hash(newPW, 10);
 
