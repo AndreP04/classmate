@@ -4,9 +4,7 @@ A platform that allows educators to store and manage learners' information in on
 ToDo:
 
 Endpoints:
---> Show all users
---> Seperate models ??
---> Fix controller error handling
+--> Seperate models!!
 --> Optimize speed of responses
 
 General:

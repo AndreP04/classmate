@@ -125,4 +125,14 @@ const searchUser = async (firstName) => {
     }));
 };
 
-export { createUser, loginUser, deleteUser, resetPassword, searchUser };
+
+/**
+ * Service to get all users
+ * @returns - A list of all users
+ */
+const getAllUsers = async () => {
+    const users = await userModel.find({});
+    return users;
+};
+
+export { createUser, loginUser, deleteUser, resetPassword, searchUser, getAllUsers };

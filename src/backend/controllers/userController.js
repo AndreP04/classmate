@@ -1,4 +1,4 @@
-import { createUser, loginUser, deleteUser, resetPassword, searchUser } from '../services/userService.js';
+import { createUser, loginUser, deleteUser, resetPassword, searchUser, getAllUsers } from '../services/userService.js';
 
 /**
  * Register a new user
@@ -107,4 +107,25 @@ const search = async (req, res) => {
     }
 };
 
-export { register, login, remove, resetPW, search };
+
+/**
+ * Get all users
+ * @param {*} req - Request
+ * @param {*} res - Response
+ * @returns - A list of all users
+ */
+const allUsers = async (req, res) => {
+    try {
+        const users = await getAllUsers();
+
+        if (!users) {
+            throw new Error('No users found');
+        }
+
+        return res.status(200).json(users);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+export { register, login, remove, resetPW, search, allUsers };
