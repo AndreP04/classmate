@@ -19,8 +19,8 @@ const register = async (req, res) => {
                 role: newUser.role
             }
         });
-    } catch {
-        res.status(500).json('User registration failed');
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
 
@@ -42,8 +42,8 @@ const login = async (req, res) => {
         }
 
         res.status(200).json('Login successful');
-    } catch {
-        res.status(500).json('User login failed');
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
 
@@ -68,8 +68,8 @@ const remove = async (req, res) => {
             res.status(404).json({ error: 'User not found' });
         }
 
-    } catch {
-        res.status(500).json({ error: 'User deletion failed' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
 

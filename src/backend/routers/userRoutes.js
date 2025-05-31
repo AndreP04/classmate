@@ -7,6 +7,6 @@ userRouter.post('/register', register);
 userRouter.get('/login', login);
 userRouter.delete('/delete', remove);
 userRouter.patch('/reset-password', resetPW);
-userRouter.get('search-users', search);
+userRouter.get('/search-users', search);
 
 export { userRouter };
