@@ -1,4 +1,4 @@
-import { createUser, loginUser, deleteUser, resetPassword } from '../services/userService.js';
+import { createUser, loginUser, deleteUser, resetPassword, searchUser } from '../services/userService.js';
 
 /**
  * Register a new user
@@ -91,4 +91,20 @@ const resetPW = async (req, res) => {
     }
 };
 
-export { register, login, remove, resetPW };
+
+const search = async (req, res) => {
+    try {
+        const { firstName } = req.body;
+        const users = await searchUser(firstName);
+
+        if (!firstName) {
+            throw new Error('First name is required to search');
+        }
+
+        res.status(200).json({ users });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+export { register, login, remove, resetPW, search };

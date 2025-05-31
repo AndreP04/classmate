@@ -103,4 +103,26 @@ const resetPassword = async (email, newPW) => {
     return { message: 'Password reset successfully' };
 };
 
-export { createUser, loginUser, deleteUser, resetPassword };
+/**
+ * Service to search for specific users
+ * @param {*} firstName - User's first name
+ * @returns - Map of user information
+ */
+const searchUser = async (firstName) => {
+    const regex = new RegExp(firstName, 'i');
+    const users = await userModel.find({ firstName: {$regex: regex} });
+
+    if (!users) {
+        throw new Error('No users found');
+    }
+
+    // Return user details
+    return users.map(user => ({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role
+    }));
+};
+
+export { createUser, loginUser, deleteUser, resetPassword, searchUser };
