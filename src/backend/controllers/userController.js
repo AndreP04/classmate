@@ -1,4 +1,4 @@
-import { createUser, loginUser, deleteUser } from '../services/userService.js';
+import { createUser, loginUser, deleteUser, resetPassword } from '../services/userService.js';
 
 /**
  * Register a new user
@@ -73,4 +73,22 @@ const remove = async (req, res) => {
     }
 };
 
-export { register, login, remove };
+/**
+ * Reset the user's password
+ * @param {*} req - Request
+ * @param {*} res - Response
+ */
+const resetPW = async (req, res) => {
+    try {
+        const { email, newPW } = req.body;
+        const result = await resetPassword(email, newPW);
+
+        res.status(200).json({
+            message: result.message
+        });
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+};
+
+export { register, login, remove, resetPW };

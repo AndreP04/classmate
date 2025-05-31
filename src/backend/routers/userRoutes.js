@@ -1,4 +1,4 @@
-import { register, login, remove } from "../controllers/userController.js";
+import { register, login, remove, resetPW } from "../controllers/userController.js";
 import express from 'express';
 const userRouter = express.Router();
 
@@ -6,5 +6,6 @@ const userRouter = express.Router();
 userRouter.post('/register', register);
 userRouter.get('/login', login);
 userRouter.delete('/delete', remove);
+userRouter.post('/reset-password', resetPW);
 
 export { userRouter };

@@ -73,4 +73,24 @@ const deleteUser = async (username) => {
     return { message: 'User deleted successfully' };
 };
 
-export { createUser, loginUser, deleteUser };
+/**
+ * Service to reset the user's password
+ * @param {*} email - User's email address
+ * @param {*} newPW - User's new password
+ * @returns - Success message
+ */
+const resetPassword = async (email, newPW) => {
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+        throw new Error('User not found');
+    }
+
+    const hashedPW = await bcrypt.hash(newPW, 10);
+
+    user.password = hashedPW;
+    await user.save();
+    return { message: 'Password reset successfully' };
+};
+
+export { createUser, loginUser, deleteUser, resetPassword };
