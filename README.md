@@ -4,13 +4,12 @@ A platform that allows educators to store and manage learners' information in on
 ToDo:
 
 Endpoints:
---> Seperate models!!
+--> Add Admin model, services, controller, routes.
 --> Optimize speed of responses
 
 General:
 --> JWT tokens
 --> RBAC
---> Add admin role
 
 Tests:
 --> Unit tests
