@@ -1,22 +1,20 @@
-
-import { userModel } from '../models/userModel.js';
+import { educatorModel } from "../models/educatorModel.js";
 import { validateEmail, validatePassword } from '../utils/validation.js';
 import bcrypt from 'bcrypt';
-
 
 /**
  * Service to register a new user
  * @param {*} userData - Stores the user's data
  * @returns Newly created user
  */
-const createUser = async (userData) => {
-    if (!userData?.username || !userData?.password) {
-        throw new Error('Username and password are required');
+const registerUser = async (userData) => {
+    if (!userData?.email || !userData?.password) {
+        throw new Error('Email and password are required');
     }
 
-    // Check if user exists with username
-    if (await userModel.findOne({ username: userData.username })) {
-        throw new Error('This username is not available');
+    // Check if user exists with email address
+    if (await userModel.findOne({ email: userData.email })) {
+        throw new Error('This email address has already been registered');
     }
 
     // Email validation
@@ -33,19 +31,19 @@ const createUser = async (userData) => {
     const hashedPW = await bcrypt.hash(userData.password, 10);
     userData.password = hashedPW;
 
-    const user = new userModel(userData);
+    const user = new educatorModel(userData);
     return await user.save();
 };
 
 
 /**
  * Service to log in an existing user
- * @param {string} username - User's username
+ * @param {string} email - User's username
  * @param {string} password - User's password
- * @returns {boolean} True or false based on success
+ * @returns {boolean} True or false based on log in success
  */
-const loginUser = async (username, password) => {
-    const user = await userModel.findOne({ username });
+const loginUser = async (email, password) => {
+    const user = await educatorModel.findOne({ email });
     if (!user) {
         console.error('User not found');
         return false;
@@ -63,19 +61,41 @@ const loginUser = async (username, password) => {
 
 /**
  * Service to delete an existing user
- * @param {*} username - Username of the user
+ * @param {*} firstName - First name of the user
  * @returns - Message indicating deletion success
  */
-const deleteUser = async (username) => {
-    const user = await userModel.findOne({ username });
+const deleteUser = async (firstName) => {
+    const user = await educatorModel.findOne({ firstName });
 
     //If the user doesn't exist, throw an error
     if (!user) {
         throw new Error('Specified user not found');
     }
 
-    await userModel.deleteOne({ username });
+    await educatorModel.deleteOne({ firstName });
     return { message: 'User deleted successfully' };
+};
+
+
+/**
+ * Service to search for specific users
+ * @param {*} firstName - User's first name
+ * @returns - Map of user information
+ */
+const searchUser = async (firstName) => {
+    const regex = new RegExp(firstName, 'i');
+    const users = await educatorModel.find({ firstName: {$regex: regex} });
+
+    if (!users) {
+        throw new Error('No users found');
+    }
+
+    // Return user details
+    return users.map(user => ({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+    }));
 };
 
 /**
@@ -103,36 +123,14 @@ const resetPassword = async (email, newPW) => {
     return { message: 'Password reset successfully' };
 };
 
-/**
- * Service to search for specific users
- * @param {*} firstName - User's first name
- * @returns - Map of user information
- */
-const searchUser = async (firstName) => {
-    const regex = new RegExp(firstName, 'i');
-    const users = await userModel.find({ firstName: {$regex: regex} });
-
-    if (!users) {
-        throw new Error('No users found');
-    }
-
-    // Return user details
-    return users.map(user => ({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        role: user.role
-    }));
-};
-
 
 /**
  * Service to get all users
  * @returns - A list of all users
  */
 const getAllUsers = async () => {
-    const users = await userModel.find({});
+    const users = await educatorModel.find({});
     return users;
 };
 
-export { createUser, loginUser, deleteUser, resetPassword, searchUser, getAllUsers };
+export { registerUser, loginUser, deleteUser, searchUser, getAllUsers, resetPassword };
