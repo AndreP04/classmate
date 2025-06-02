@@ -9,7 +9,7 @@ Endpoints:
 
 General:
 --> JWT tokens
---> RBAC
+--> RBAC for Educators and Admins
 
 Tests:
 --> Unit tests
