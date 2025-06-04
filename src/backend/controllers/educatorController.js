@@ -1,4 +1,4 @@
-import { registerUser, loginUser, deleteStudent, resetPassword, searchStudent, getAllUsers } from '../services/educatorService.js';
+import { registerUser, loginUser, deleteStudent, resetPassword, searchStudent, getAllStudents } from '../services/educatorService.js';
 
 
 /**
@@ -120,9 +120,9 @@ const search = async (req, res) => {
  * @param {*} req - Request
  * @param {*} res - Response
  */
-const allUsers = async (req, res) => {
+const allStudents = async (req, res) => {
     try {
-        const users = await getAllUsers();
+        const users = await getAllStudents();
 
         if (!users) {
             throw new Error('No users found');
@@ -135,4 +135,4 @@ const allUsers = async (req, res) => {
 };
 
 
-export { register, login, removeStudent, resetPW, search, allUsers };
+export { register, login, removeStudent, resetPW, search, allStudents };

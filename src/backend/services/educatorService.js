@@ -128,9 +128,9 @@ const resetPassword = async (email, newPW) => {
  * Service to get all users
  * @returns - A list of all users
  */
-const getAllUsers = async () => {
+const getAllStudents = async () => {
     const users = await educatorModel.find({});
     return users;
 };
 
-export { registerUser, loginUser, deleteStudent, searchStudent, getAllUsers, resetPassword };
+export { registerUser, loginUser, deleteStudent, searchStudent, getAllStudents, resetPassword };
