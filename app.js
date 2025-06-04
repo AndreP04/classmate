@@ -1,12 +1,12 @@
 import { connectDB } from './src/backend/config/connectDB.js';
 import dotenv from 'dotenv';
 import express from 'express';
-import { userRouter } from './src/backend/routers/userRoutes.js';
+import { educatorRouter } from './src/backend/routers/educatorRoutes.js';
 dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use('/classmate', userRouter);
+app.use('/classmate', educatorRouter);
 
 try {
 
