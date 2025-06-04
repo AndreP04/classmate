@@ -60,11 +60,11 @@ const loginUser = async (email, password) => {
 
 
 /**
- * Service to delete an existing user
+ * Service to delete an existing student
  * @param {*} firstName - First name of the user
  * @returns - Message indicating deletion success
  */
-const deleteUser = async (firstName) => {
+const deleteStudent = async (firstName) => {
     const user = await educatorModel.findOne({ firstName });
 
     //If the user doesn't exist, throw an error
@@ -78,11 +78,11 @@ const deleteUser = async (firstName) => {
 
 
 /**
- * Service to search for specific users
+ * Service to search for specific students
  * @param {*} firstName - User's first name
  * @returns - Map of user information
  */
-const searchUser = async (firstName) => {
+const searchStudent = async (firstName) => {
     const regex = new RegExp(firstName, 'i');
     const users = await educatorModel.find({ firstName: {$regex: regex} });
 
@@ -133,4 +133,4 @@ const getAllUsers = async () => {
     return users;
 };
 
-export { registerUser, loginUser, deleteUser, searchUser, getAllUsers, resetPassword };
+export { registerUser, loginUser, deleteStudent, searchStudent, getAllUsers, resetPassword };

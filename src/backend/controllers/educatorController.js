@@ -1,4 +1,4 @@
-import { registerUser, loginUser, deleteUser, resetPassword, searchUser, getAllUsers } from '../services/educatorService.js';
+import { registerUser, loginUser, deleteStudent, resetPassword, searchStudent, getAllUsers } from '../services/educatorService.js';
 
 
 /**
@@ -49,12 +49,12 @@ const login = async (req, res) => {
 
 
 /**
- * Delete an existing user
+ * Delete an existing student
  * @param {*} req - Request
  * @param {*} res - Response
  * @returns 
  */
-const remove = async (req, res) => {
+const removeStudent = async (req, res) => {
     try {
         const { firstName } = req.body;
 
@@ -62,7 +62,7 @@ const remove = async (req, res) => {
             return res.status(400).json('First name is required');
         }
 
-        const result = await deleteUser(firstName);
+        const result = await deleteStudent(firstName);
         if (result) {
             res.status(200).json(result);
         } else {
@@ -102,7 +102,7 @@ const resetPW = async (req, res) => {
 const search = async (req, res) => {
     try {
         const { firstName } = req.body;
-        const users = await searchUser(firstName);
+        const users = await searchStudent(firstName);
 
         if (!firstName) {
             throw new Error('First name is required to search');
@@ -116,7 +116,7 @@ const search = async (req, res) => {
 
 
 /**
- * Get all users
+ * Get all students
  * @param {*} req - Request
  * @param {*} res - Response
  */
@@ -135,4 +135,4 @@ const allUsers = async (req, res) => {
 };
 
 
-export { register, login, remove, resetPW, search, allUsers };
+export { register, login, removeStudent, resetPW, search, allUsers };
