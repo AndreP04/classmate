@@ -13,7 +13,7 @@ const registerUser = async (userData) => {
     }
 
     // Check if user exists with email address
-    if (await userModel.findOne({ email: userData.email })) {
+    if (await educatorModel.findOne({ email: userData.email })) {
         throw new Error('This email address has already been registered');
     }
 
@@ -105,7 +105,7 @@ const searchStudent = async (firstName) => {
  * @returns - Success message
  */
 const resetPassword = async (email, newPW) => {
-    const user = await userModel.findOne({ email });
+    const user = await educatorModel.findOne({ email });
 
     if (!user) {
         throw new Error('User not found');

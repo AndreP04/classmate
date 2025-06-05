@@ -4,15 +4,15 @@ const studentSchema = new mongoose.Schema({
 
     firstName: {
         type: String,
-        require: true
+        required: true
     },
     lastName: {
         type: String,
-        require: true
+        required: true
     },
     age: {
         type: Number,
-        required: true
+        requiredd: true
     },
     grade: {
         type: Number
@@ -20,6 +20,6 @@ const studentSchema = new mongoose.Schema({
 
 });
 
-const studentModel = mongoose.model('EDUCATOR', studentSchema);
+const studentModel = mongoose.model('STUDENT', studentSchema);
 
 export { studentModel };
