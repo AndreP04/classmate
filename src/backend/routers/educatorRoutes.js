@@ -5,9 +5,9 @@ const educatorRouter = express.Router();
 // Routes
 educatorRouter.post('/register', register);
 educatorRouter.get('/login', login);
-educatorRouter.delete('/delete', removeStudent);
+educatorRouter.delete('/deleteStudent', removeStudent);
 educatorRouter.patch('/reset-password', resetPW);
-educatorRouter.get('/search-users', search);
-educatorRouter.get('/all-users', allStudents);
+educatorRouter.get('/search-students', search);
+educatorRouter.get('/all-students', allStudents);
 
 export { educatorRouter };
