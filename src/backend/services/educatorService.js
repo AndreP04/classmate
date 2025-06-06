@@ -106,7 +106,10 @@ const searchStudent = async (firstName) => {
     return students.map(student => ({
         firstName: student.firstName,
         lastName: student.lastName,
-        email: student.email
+        age: student.age,
+        grade: student.grade,
+        institution: student.institution,
+        institutionType: student.institutionType
     }));
 };
 
