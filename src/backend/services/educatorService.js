@@ -77,15 +77,15 @@ const registerStudent = async (studentData) => {
  * @returns - Message indicating deletion success/failure
  */
 const deleteStudent = async (firstName) => {
-    const user = await educatorModel.findOne({ firstName }); //!FIX
+    const student = await studentModel.findOne({ firstName });
 
-    //If the user doesn't exist, throw an error
-    if (!user) {
+    //If the student does not exist, throw an error
+    if (!student) {
         throw new Error('Specified student not found');
     }
 
-    await educatorModel.deleteOne({ firstName });
-    return { message: 'User deleted successfully' };
+    await studentModel.deleteOne({ firstName });
+    return { message: 'Student deleted successfully' };
 };
 
 
@@ -96,14 +96,14 @@ const deleteStudent = async (firstName) => {
  */
 const searchStudent = async (firstName) => {
     const regex = new RegExp(firstName, 'i');
-    const users = await educatorModel.find({ firstName: {$regex: regex} }); //! FIX
+    const students = await studentModel.find({ firstName: {$regex: regex} });
 
-    if (!users) {
-        throw new Error('No users found');
+    if (!students) {
+        throw new Error('No students found');
     }
 
     // Return student details
-    return users.map(student => ({
+    return students.map(student => ({
         firstName: student.firstName,
         lastName: student.lastName,
         email: student.email
