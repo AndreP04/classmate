@@ -1,10 +1,19 @@
-import { registerUser, loginUser, deleteStudent, resetPassword, searchStudent, getAllStudents } from '../services/educatorService.js';
+import {
+    registerUser, 
+    loginUser, 
+    registerStudent, 
+    deleteStudent, 
+    resetPassword, 
+    searchStudent, 
+    getAllStudents
+} from '../services/educatorService.js';
 
 
 /**
  * Register a new user
  * @param {*} req - Request
  * @param {*} res - Response
+ * @returns - Newly created educator
  */
 const register = async (req, res) => {
     try {
@@ -49,10 +58,36 @@ const login = async (req, res) => {
 
 
 /**
+ * Register a new student
+ * @param {*} req 
+ * @param {*} res 
+ * @returns - Newly registered student
+ */
+const addStudent = async (req, res) => {
+    try {
+        const newStudent = await registerStudent(req.body);
+
+        return res.status(201).json({
+            message: 'New student registered successfully',
+            user: {
+                firstName: newStudent.firstName,
+                lastName: newStudent.lastName,
+                age: newStudent.age,
+                grade: newStudent.grade,
+                institution: newStudent.institution,
+                institutionType: newStudent.institutionType
+            }
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+
+/**
  * Delete an existing student
  * @param {*} req - Request
- * @param {*} res - Response
- * @returns 
+ * @param {*} res - Response 
  */
 const removeStudent = async (req, res) => {
     try {
@@ -135,4 +170,12 @@ const allStudents = async (req, res) => {
 };
 
 
-export { register, login, removeStudent, resetPW, search, allStudents };
+export {
+    register, 
+    login,
+    addStudent,
+    removeStudent, 
+    resetPW, 
+    search, 
+    allStudents
+};

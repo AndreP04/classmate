@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 const studentSchema = new mongoose.Schema({
-
     firstName: {
         type: String,
         required: true
@@ -12,12 +11,23 @@ const studentSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        requiredd: true
+        required: true
     },
     grade: {
-        type: Number
+        type: Number,
+        required: true
+    },
+    institution: {
+        type: String,
+        required: true
+    },
+    institutionType: {
+        type: String,
+        required: true
     }
-
+},
+{
+    collection: 'STUDENT'
 });
 
 const studentModel = mongoose.model('STUDENT', studentSchema);

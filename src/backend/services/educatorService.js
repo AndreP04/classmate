@@ -1,61 +1,73 @@
 import { educatorModel } from "../models/educatorModel.js";
 import { validateEmail, validatePassword } from '../utils/validation.js';
+import { studentModel } from "../models/studentModel.js";
 import bcrypt from 'bcrypt';
 
 /**
- * Service to register a new user
- * @param {*} userData - Stores the user's data
- * @returns Newly created user
+ * Service to register a new educator
+ * @param {*} educatorData - Stores the educator's data
+ * @returns Newly created educator
  */
-const registerUser = async (userData) => {
-    if (!userData?.email || !userData?.password) {
+const registerUser = async (educatorData) => {
+    if (!educatorData?.email || !educatorData?.password) {
         throw new Error('Email and password are required');
     }
 
     // Check if user exists with email address
-    if (await educatorModel.findOne({ email: userData.email })) {
+    if (await educatorModel.findOne({ email: educatorData.email })) {
         throw new Error('This email address has already been registered');
     }
 
     // Email validation
-    if (!await validateEmail(userData.email)) {
+    if (!await validateEmail(educatorData.email)) {
         throw new Error('Invalid email address');
     };
 
     // Password validation
-    if (!await validatePassword(userData.password)) {
+    if (!await validatePassword(educatorData.password)) {
         throw new Error('A password of 8 or more characters is required');
     }
 
     // Hash password
-    const hashedPW = await bcrypt.hash(userData.password, 10);
-    userData.password = hashedPW;
+    const hashedPW = await bcrypt.hash(educatorData.password, 10);
+    educatorData.password = hashedPW;
 
-    const user = new educatorModel(userData);
-    return await user.save();
+    const educator = new educatorModel(educatorData);
+    return await educator.save();
 };
 
 
 /**
- * Service to log in an existing user
- * @param {string} email - User's username
- * @param {string} password - User's password
+ * Service to log in an existing educator
+ * @param {string} email - Educator's username
+ * @param {string} password - Educator's password
  * @returns {boolean} True or false based on log in success
  */
 const loginUser = async (email, password) => {
-    const user = await educatorModel.findOne({ email });
-    if (!user) {
-        console.error('User not found');
+    const educator = await educatorModel.findOne({ email });
+    if (!educator) {
+        console.error('Educator not found');
         return false;
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, educator.password);
     if (!isMatch) {
         console.error('Invalid password');
         return false;
     }
 
     return true;
+};
+
+
+/**
+ * Service to register a new student
+ * @param {*} studentData - New student's data
+ * @returns - Newly created user data
+ */
+const registerStudent = async (studentData) => {
+    const newStudent = new studentModel(studentData);
+    return await newStudent.save();
 };
 
 
@@ -69,7 +81,7 @@ const deleteStudent = async (firstName) => {
 
     //If the user doesn't exist, throw an error
     if (!user) {
-        throw new Error('Specified user not found');
+        throw new Error('Specified student not found');
     }
 
     await educatorModel.deleteOne({ firstName });
@@ -79,36 +91,36 @@ const deleteStudent = async (firstName) => {
 
 /**
  * Service to search for specific students
- * @param {*} firstName - User's first name
- * @returns - Map of user information
+ * @param {*} firstName - Student's first name
+ * @returns - Map of student's information
  */
 const searchStudent = async (firstName) => {
     const regex = new RegExp(firstName, 'i');
-    const users = await educatorModel.find({ firstName: {$regex: regex} });
+    const users = await educatorModel.find({ firstName: {$regex: regex} }); //! FIX
 
     if (!users) {
         throw new Error('No users found');
     }
 
-    // Return user details
-    return users.map(user => ({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email
+    // Return student details
+    return users.map(student => ({
+        firstName: student.firstName,
+        lastName: student.lastName,
+        email: student.email
     }));
 };
 
 /**
- * Service to reset the user's password
- * @param {*} email - User's email address
- * @param {*} newPW - User's new password
+ * Service to reset the educator's password
+ * @param {*} email - Educator's email address
+ * @param {*} newPW - Educator's new password
  * @returns - Success message
  */
 const resetPassword = async (email, newPW) => {
-    const user = await educatorModel.findOne({ email });
+    const educator = await educatorModel.findOne({ email });
 
-    if (!user) {
-        throw new Error('User not found');
+    if (!educator) {
+        throw new Error('Educator not found');
     }
 
     // Password validation
@@ -118,8 +130,8 @@ const resetPassword = async (email, newPW) => {
 
     const hashedPW = await bcrypt.hash(newPW, 10);
 
-    user.password = hashedPW;
-    await user.save();
+    educator.password = hashedPW;
+    await educator.save();
     return { message: 'Password reset successfully' };
 };
 
@@ -133,4 +145,12 @@ const getAllStudents = async () => {
     return users;
 };
 
-export { registerUser, loginUser, deleteStudent, searchStudent, getAllStudents, resetPassword };
+export {
+    registerUser, 
+    loginUser, 
+    registerStudent,
+    deleteStudent, 
+    searchStudent, 
+    getAllStudents, 
+    resetPassword
+};

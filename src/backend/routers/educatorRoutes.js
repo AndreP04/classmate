@@ -1,10 +1,19 @@
-import { register, login, removeStudent, resetPW, search, allStudents } from "../controllers/educatorController.js";
+import {
+    register, 
+    login,
+    addStudent,
+    removeStudent, 
+    resetPW, 
+    search, 
+    allStudents
+} from "../controllers/educatorController.js";
 import express from 'express';
 const educatorRouter = express.Router();
 
 // Routes
-educatorRouter.post('/register', register);
-educatorRouter.get('/login', login);
+educatorRouter.post('/register-educator', register);
+educatorRouter.get('/login-educator', login);
+educatorRouter.post('/register-student', addStudent)
 educatorRouter.delete('/delete-student', removeStudent);
 educatorRouter.patch('/reset-password', resetPW);
 educatorRouter.get('/search-students', search);
