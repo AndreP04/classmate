@@ -4,8 +4,7 @@ A platform that allows educators to store and manage learners' information in on
 ToDo:
 
 Endpoints:
---> addStudent endpoint
---> Fix searchStudents and allStudents endpoints to not show educators
+--> Fix searchStudents, deleteStudent and allStudents endpoints to not use educators
 --> Add Admin model, services, controller, routes.
 --> Optimize speed of responses
 

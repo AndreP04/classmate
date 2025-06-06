@@ -1,6 +1,6 @@
 import {
-    registerUser, 
-    loginUser, 
+    registerEducator, 
+    loginEducator, 
     registerStudent, 
     deleteStudent, 
     resetPassword, 
@@ -10,21 +10,21 @@ import {
 
 
 /**
- * Register a new user
+ * Register a new educator
  * @param {*} req - Request
  * @param {*} res - Response
  * @returns - Newly created educator
  */
 const register = async (req, res) => {
     try {
-        const newUser = await registerUser(req.body);
+        const newEducator = await registerEducator(req.body);
 
         return res.status(201).json({
             message: 'User registered successfully',
             user: {
-                firstName: newUser.firstName,
-                lastName: newUser.lastName,
-                emailAddress: newUser.email
+                firstName: newEducator.firstName,
+                lastName: newEducator.lastName,
+                emailAddress: newEducator.email
             }
         });
     } catch (err) {
@@ -34,7 +34,7 @@ const register = async (req, res) => {
 
 
 /**
- * Log in an existing user
+ * Log in an existing educator
  * @param {*} req - Request
  * @param {*} res - Response
  */
@@ -46,7 +46,7 @@ const login = async (req, res) => {
             return res.status(400).json('Email and password are required');
         }
 
-        if (!await loginUser(email, password)) {
+        if (!await loginEducator(email, password)) {
             return res.status(401).json('Incorrect email address or password');
         }
 
@@ -59,8 +59,8 @@ const login = async (req, res) => {
 
 /**
  * Register a new student
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req - Request
+ * @param {*} res - Response
  * @returns - Newly registered student
  */
 const addStudent = async (req, res) => {
@@ -101,7 +101,7 @@ const removeStudent = async (req, res) => {
         if (result) {
             res.status(200).json(result);
         } else {
-            res.status(404).json({ error: 'User not found' });
+            res.status(404).json({ error: 'Student not found' });
         }
 
     } catch (err) {
@@ -111,7 +111,7 @@ const removeStudent = async (req, res) => {
 
 
 /**
- * Reset the user's password
+ * Reset the educator's password
  * @param {*} req - Request
  * @param {*} res - Response
  */
@@ -137,13 +137,13 @@ const resetPW = async (req, res) => {
 const search = async (req, res) => {
     try {
         const { firstName } = req.body;
-        const users = await searchStudent(firstName);
+        const studentList = await searchStudent(firstName);
 
         if (!firstName) {
             throw new Error('First name is required to search');
         }
 
-        res.status(200).json({ users });
+        res.status(200).json({ studentList });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -157,13 +157,13 @@ const search = async (req, res) => {
  */
 const allStudents = async (req, res) => {
     try {
-        const users = await getAllStudents();
+        const allStudents = await getAllStudents();
 
-        if (!users) {
-            throw new Error('No users found');
+        if (!allStudents) {
+            throw new Error('No students found');
         }
 
-        res.status(200).json(users);
+        res.status(200).json(allStudents);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

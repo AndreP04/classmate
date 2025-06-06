@@ -8,7 +8,7 @@ import bcrypt from 'bcrypt';
  * @param {*} educatorData - Stores the educator's data
  * @returns Newly created educator
  */
-const registerUser = async (educatorData) => {
+const registerEducator = async (educatorData) => {
     if (!educatorData?.email || !educatorData?.password) {
         throw new Error('Email and password are required');
     }
@@ -43,7 +43,7 @@ const registerUser = async (educatorData) => {
  * @param {string} password - Educator's password
  * @returns {boolean} True or false based on log in success
  */
-const loginUser = async (email, password) => {
+const loginEducator = async (email, password) => {
     const educator = await educatorModel.findOne({ email });
     if (!educator) {
         console.error('Educator not found');
@@ -73,11 +73,11 @@ const registerStudent = async (studentData) => {
 
 /**
  * Service to delete an existing student
- * @param {*} firstName - First name of the user
- * @returns - Message indicating deletion success
+ * @param {*} firstName - First name of the student
+ * @returns - Message indicating deletion success/failure
  */
 const deleteStudent = async (firstName) => {
-    const user = await educatorModel.findOne({ firstName });
+    const user = await educatorModel.findOne({ firstName }); //!FIX
 
     //If the user doesn't exist, throw an error
     if (!user) {
@@ -114,7 +114,7 @@ const searchStudent = async (firstName) => {
  * Service to reset the educator's password
  * @param {*} email - Educator's email address
  * @param {*} newPW - Educator's new password
- * @returns - Success message
+ * @returns - Success message upon successful reset
  */
 const resetPassword = async (email, newPW) => {
     const educator = await educatorModel.findOne({ email });
@@ -137,17 +137,17 @@ const resetPassword = async (email, newPW) => {
 
 
 /**
- * Service to get all users
- * @returns - A list of all users
+ * Service to retrieve all students
+ * @returns - A list of all students
  */
 const getAllStudents = async () => {
-    const users = await educatorModel.find({});
-    return users;
+    const allStudents = await studentModel.find({});
+    return allStudents;
 };
 
 export {
-    registerUser, 
-    loginUser, 
+    registerEducator, 
+    loginEducator, 
     registerStudent,
     deleteStudent, 
     searchStudent, 
