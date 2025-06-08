@@ -5,6 +5,7 @@ ToDo:
 
 Endpoints:
 --> Add Admin model, services, controller, routes.
+--> Move registerEducator to Admin role.
 --> Optimize speed of responses
 
 General:
