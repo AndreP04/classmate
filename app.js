@@ -2,11 +2,13 @@ import { connectDB } from './src/backend/config/connectDB.js';
 import dotenv from 'dotenv';
 import express from 'express';
 import { educatorRouter } from './src/backend/routers/educatorRoutes.js';
+import { adminRouter } from './src/backend/routers/adminRoutes.js';
 dotenv.config();
 const app = express();
 
 app.use(express.json());
 app.use('/classmate', educatorRouter);
+app.use('/admin', adminRouter);
 
 try {
 

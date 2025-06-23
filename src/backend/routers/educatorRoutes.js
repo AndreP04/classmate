@@ -1,5 +1,4 @@
 import {
-    register, 
     login,
     addStudent,
     removeStudent, 
@@ -11,7 +10,6 @@ import express from 'express';
 const educatorRouter = express.Router();
 
 // Routes
-educatorRouter.post('/register-educator', register);
 educatorRouter.get('/login-educator', login);
 educatorRouter.post('/register-student', addStudent)
 educatorRouter.delete('/delete-student', removeStudent);
