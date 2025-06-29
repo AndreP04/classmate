@@ -17,6 +17,7 @@
   "license": "MIT",
   "type": "module",
   "devDependencies": {
+    "@types/react": "^19.1.8",
     "chai": "^5.2.0",
     "mocha": "^11.5.0",
     "sinon": "^20.0.0"
