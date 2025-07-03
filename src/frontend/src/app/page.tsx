@@ -1,5 +1,7 @@
 import React from 'react';
 
-export default function Page() {
-  return <h1>CrossFit Damascus</h1>
-}
+const LogIn = () => {
+  return <h1>ClassMate</h1>
+};
+
+export default LogIn;
