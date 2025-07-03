@@ -1,7 +1,7 @@
 import React from 'react';
 
-const LogIn = () => {
+const Page = () => {
   return <h1>ClassMate</h1>
 };
 
-export default LogIn;
+export default Page;
