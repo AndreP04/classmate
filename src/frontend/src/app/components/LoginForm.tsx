@@ -14,7 +14,7 @@ const LoginForm = () => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6 bg-white rounded shadow space-y-4">
-                <h2 className="text-2xl font-bold text-center">Log In</h2>
+                <h1 className="text-2xl font-bold text-center">Welcome to ClassMate</h1>
 
                 <input
                     type="email"
