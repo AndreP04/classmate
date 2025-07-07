@@ -1,5 +1,5 @@
 "use client";
-
+import Image from 'next/image'
 import { useState } from "react";
 
 const LoginForm = () => {
@@ -14,7 +14,16 @@ const LoginForm = () => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-700">
             <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6 bg-white rounded shadow space-y-4">
-                <h1 className="text-2xl font-bold text-center text-gray-700">Welcome to ClassMate</h1>
+
+                <Image 
+                    className="mx-auto border rounded-lg border-black"
+                    src="/LoginLogo.png"
+                    alt="Log In Image"
+                    width={900}
+                    height={900}
+                />
+
+                {/* <h1 className="text-2xl font-bold text-center text-gray-700">Welcome to ClassMate</h1> */}
 
                 <input
                     type="email"
