@@ -12,18 +12,21 @@ const LoginForm = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-700">
-            <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6 bg-white rounded shadow space-y-4">
+        <div className="flex items-center justify-center min-h-screen bg-gray-900">
 
-                <Image 
-                    className="mx-auto border rounded-lg border-black"
-                    src="/LoginLogo.png"
+            {/* Login Form */}
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto p-8 bg-white rounded shadow space-y-4">
+
+                {/* Logo Image */}
+                <Image
+                    className="mx-auto border rounded-lg"
+                    src="/LoginLogo.PNG"
                     alt="Log In Image"
                     width={900}
-                    height={900}
+                    height={200}
                 />
 
-                {/* <h1 className="text-2xl font-bold text-center text-gray-700">Welcome to ClassMate</h1> */}
+                <h1 className="text-3xl font-bold text-center text-gray-700">Welcome to ClassMate</h1>
 
                 <input
                     type="email"
@@ -43,7 +46,7 @@ const LoginForm = () => {
                     required
                 />
 
-                <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-800 transition">
+                <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-800 transition">
                     Log In
                 </button>
             </form>
