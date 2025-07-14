@@ -1,5 +1,6 @@
 import { educatorModel } from "../models/educatorModel.js";
 import { validateEmail, validatePassword } from '../utils/validation.js';
+import bcrypt from 'bcrypt';
 
 /**
  * Service to register a new educator
@@ -13,15 +14,14 @@ const registerEducator = async (educatorData) => {
 
     // Check if user exists with email address
     if (await educatorModel.findOne({ email: educatorData.email })) {
-        throw new Error('This email address has already been registered');
+        throw new Error('A user with this email address has already been registered');
     }
 
-    // Email validation
+    // Validation
     if (!await validateEmail(educatorData.email)) {
         throw new Error('Invalid email address');
     };
 
-    // Password validation
     if (!await validatePassword(educatorData.password)) {
         throw new Error('A password of 8 or more characters is required');
     }
@@ -44,7 +44,7 @@ const deleteEducator = async (firstName) => {
 
     //If the educator does not exist, throw an error
     if (!educator) {
-        throw new Error('Specified student not found');
+        throw new Error('Specified educator not found');
     }
 
     await educatorModel.deleteOne({ firstName });

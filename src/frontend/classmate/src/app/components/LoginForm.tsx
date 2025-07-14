@@ -49,6 +49,11 @@ const LoginForm = () => {
                 <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-800 transition">
                     Log In
                 </button>
+
+                <a className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-800 transition"  href="/auth/reset-password">
+                    Forgot password?
+                </a>
+
             </form>
         </div>
     )

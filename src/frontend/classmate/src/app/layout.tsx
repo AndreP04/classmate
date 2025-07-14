@@ -4,6 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "ClassMate",
   description: "Manage student information easily with ClassMate.",
+  icons: "/LoginLogo.PNG"
 };
 
 export default function RootLayout({

@@ -22,5 +22,5 @@ try {
     await connectDB(process.env.DB_URI);
 
 } catch (err) {
-    console.error(`Failed to connect to Mongo database: ${err}`);
+    console.error(`Failed to connect to database: ${err}`);
 }
