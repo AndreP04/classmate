@@ -1,9 +1,8 @@
-const HomePage = () => {
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900">
-      <h1>Welcome to ClassMate</h1>
-    </div>
-  )
+"use client";
+import LoginForm from "@/app/components/LoginForm";
+
+const LogInPage = () => {
+  return <LoginForm />
 };
 
-export default HomePage;
+export default LogInPage;

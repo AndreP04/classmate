@@ -13,13 +13,13 @@ const LoginForm = () => {
         e.preventDefault();
         
         try {
-            const { data } =  await instance.post('/classmate/login-educator', {
+            await instance.post('/classmate/login-educator', {
                 email,
                 password
             });
 
             // Redirect to home page
-            router.push('/');
+            router.push('/home');
 
 
         } catch (err: any) {
