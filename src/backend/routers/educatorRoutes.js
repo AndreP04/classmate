@@ -10,7 +10,7 @@ import express from 'express';
 const educatorRouter = express.Router();
 
 // Routes
-educatorRouter.get('/login-educator', login);
+educatorRouter.post('/login-educator', login);
 educatorRouter.post('/register-student', addStudent)
 educatorRouter.delete('/delete-student', removeStudent);
 educatorRouter.patch('/reset-password', resetPW);

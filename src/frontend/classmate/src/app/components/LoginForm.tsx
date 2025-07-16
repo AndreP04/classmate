@@ -1,14 +1,31 @@
 "use client";
 import Image from 'next/image'
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
+import instance from '@/lib/axios';
 
 const LoginForm = () => {
+    const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // todo Connect educator login endpoint  
+        
+        try {
+            const { data } =  await instance.post('/classmate/login-educator', {
+                email,
+                password
+            });
+
+            // Redirect to home page
+            router.push('/');
+
+
+        } catch (err: any) {
+            console.error(`Failed to log in: ${err}`);
+            alert('Failed to log in');
+        }
     };
 
     return (
