@@ -1,17 +1,40 @@
-import { registerEducator, deleteEducator } from "../services/adminService.js";
+import { registerEducator, deleteEducator, registerAdmin } from "../services/adminService.js";
+
+/**
+ * Register a new admin
+ * @param {*} req - Request
+ * @param {*} res - Response
+ * @returns Newly created admin
+ */
+const adminRegister = async (req, res) => {
+    try {
+        const newAdmin = await registerAdmin(req.body);
+
+        return res.status(201).json({
+            message: 'Admin registered successfully',
+            user: {
+                firstName: newAdmin.firstName,
+                lastName: newAdmin.lastName,
+                emailAddress: newAdmin.email
+            }
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
 
 /**
  * Register a new educator
  * @param {*} req - Request
  * @param {*} res - Response
- * @returns - Newly created educator
+ * @returns Newly created educator
  */
-const register = async (req, res) => {
+const educatorRegister = async (req, res) => {
     try {
         const newEducator = await registerEducator(req.body);
 
         return res.status(201).json({
-            message: 'User registered successfully',
+            message: 'Educator registered successfully',
             user: {
                 firstName: newEducator.firstName,
                 lastName: newEducator.lastName,
@@ -48,4 +71,4 @@ const removeEducator = async (req, res) => {
     }
 };
 
-export { register, removeEducator };
+export { adminRegister, educatorRegister, removeEducator };
