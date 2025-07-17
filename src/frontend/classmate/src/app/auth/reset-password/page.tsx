@@ -1,5 +1,10 @@
+"use client";
+import ResetPasswordForm from "@/app/components/ResetPasswordForm";
+
 const ResetPassword = () => {
-    return <h1>Reset password page</h1>
+    return (
+        <ResetPasswordForm />
+    );
 };
 
 export default ResetPassword;
