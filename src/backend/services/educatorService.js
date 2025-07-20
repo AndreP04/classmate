@@ -83,10 +83,10 @@ const searchStudent = async (firstName) => {
 /**
  * Service to reset the educator's password
  * @param {*} email - Educator's email address
- * @param {*} newPW - Educator's new password
+ * @param {*} newPassword - Educator's new password
  * @returns - Success message upon successful reset
  */
-const resetPassword = async (email, newPW) => {
+const resetPassword = async (email, newPassword) => {
     const educator = await educatorModel.findOne({ email });
 
     if (!educator) {
@@ -94,11 +94,11 @@ const resetPassword = async (email, newPW) => {
     }
 
     // Password validation
-    if (!await validatePassword(newPW)) {
+    if (!await validatePassword(newPassword)) {
         throw new Error('A new password of 8 or more characters is required');
     } 
 
-    const hashedPW = await bcrypt.hash(newPW, 10);
+    const hashedPW = await bcrypt.hash(newPassword, 10);
 
     educator.password = hashedPW;
     await educator.save();

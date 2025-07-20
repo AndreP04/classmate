@@ -92,8 +92,8 @@ const removeStudent = async (req, res) => {
  */
 const resetPW = async (req, res) => {
     try {
-        const { email, newPW } = req.body;
-        const result = await resetPassword(email, newPW);
+        const { email, newPassword } = req.body;
+        const result = await resetPassword(email, newPassword);
 
         res.status(200).json({
             message: result.message

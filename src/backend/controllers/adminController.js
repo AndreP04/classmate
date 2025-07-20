@@ -1,4 +1,4 @@
-import { registerEducator, deleteEducator, registerAdmin } from "../services/adminService.js";
+import { registerEducator, deleteEducator, registerAdmin, resetAdminPassword } from "../services/adminService.js";
 
 /**
  * Register a new admin
@@ -71,4 +71,22 @@ const removeEducator = async (req, res) => {
     }
 };
 
-export { adminRegister, educatorRegister, removeEducator };
+/**
+ * Reset the admin's password
+ * @param {*} req - Request
+ * @param {*} res - Response
+ */
+const resetAdminPW = async (req, res) => {
+    try {
+        const { email, newPassword } = req.body;
+        const result = await resetAdminPassword(email, newPassword);
+
+        res.status(200).json({
+            message: result.message
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+export { adminRegister, educatorRegister, removeEducator, resetAdminPW };

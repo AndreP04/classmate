@@ -8,10 +8,33 @@ const ResetPasswordForm = () => {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [newPW, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO reset-password endpoint integration
+
+        if (newPW !== confirmPassword) {
+            alert("New passwords do not match");
+            return;
+        }
+
+        try {
+            await instance.patch('/admin/reset-password', {
+                email,
+                newPassword: newPW
+            });
+
+            alert("Password reset successful! Please log in.");
+
+            // Redirect to Login page
+            router.push('/');
+
+
+        } catch (err: any) {
+            console.error(`Failed to reset password: ${err}`);
+            alert('Failed to reset password');
+        }
     };
 
     return (
@@ -33,7 +56,7 @@ const ResetPasswordForm = () => {
 
                 <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Current Password"
                     className="w-full p-3 border rounded text-gray-700"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -44,8 +67,8 @@ const ResetPasswordForm = () => {
                     type="password"
                     placeholder="New Password"
                     className="w-full p-3 border rounded text-gray-700"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={newPW}
+                    onChange={(e) => setNewPassword(e.target.value)}
                     required
                 />
 
@@ -53,8 +76,8 @@ const ResetPasswordForm = () => {
                     type="password"
                     placeholder="Confirm New Password"
                     className="w-full p-3 border rounded text-gray-700"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                 />
 
