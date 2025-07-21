@@ -1,5 +1,7 @@
 import { educatorModel } from "../models/educatorModel.js";
 import { adminModel } from "../models/adminModel.js";
+import { validatePassword } from "../utils/validation.js";
+import bcrypt from "bcrypt";
 
 /**
  * Service to log in an existing user account
@@ -25,4 +27,30 @@ const loginUser = async (email, password) => {
     return true;
 };
 
-export { loginUser };
+/**
+ * Service to reset the user's password
+ * @param {*} email - User's email address
+ * @param {*} newPassword - User's new password
+ * @returns - Success message upon successful reset
+ */
+const resetPassword = async (email, newPassword) => {
+    
+    const user = await adminModel.findOne({ email }) || await educatorModel.findOne({ email });
+
+    if (!user) {
+        throw new Error('User not found');
+    }
+
+    // Password validation
+    if (!await validatePassword(newPassword)) {
+        throw new Error('A new password of 8 or more characters is required');
+    } 
+
+    const hashedPW = await bcrypt.hash(newPassword, 10);
+
+    user.password = hashedPW;
+    await user.save();
+    return { message: 'Password reset successfully' };
+};
+
+export { loginUser, resetPassword };

@@ -1,8 +1,4 @@
-import { educatorModel } from "../models/educatorModel.js";
-import { validatePassword } from '../utils/validation.js';
 import { studentModel } from "../models/studentModel.js";
-import bcrypt from 'bcrypt';
-
 
 /**
  * Service to register a new student
@@ -57,31 +53,6 @@ const searchStudent = async (firstName) => {
     }));
 };
 
-/**
- * Service to reset the educator's password
- * @param {*} email - Educator's email address
- * @param {*} newPassword - Educator's new password
- * @returns - Success message upon successful reset
- */
-const resetPassword = async (email, newPassword) => {
-    const educator = await educatorModel.findOne({ email });
-
-    if (!educator) {
-        throw new Error('Educator not found');
-    }
-
-    // Password validation
-    if (!await validatePassword(newPassword)) {
-        throw new Error('A new password of 8 or more characters is required');
-    } 
-
-    const hashedPW = await bcrypt.hash(newPassword, 10);
-
-    educator.password = hashedPW;
-    await educator.save();
-    return { message: 'Password reset successfully' };
-};
-
 
 /**
  * Service to retrieve all students
@@ -93,10 +64,8 @@ const getAllStudents = async () => {
 };
 
 export {
-    loginEducator, 
     registerStudent,
     deleteStudent, 
     searchStudent, 
-    getAllStudents, 
-    resetPassword
+    getAllStudents
 };

@@ -84,29 +84,4 @@ const deleteEducator = async (firstName) => {
     return { message: 'Educator deleted successfully' };
 };
 
-/**
- * Service to reset the admin's password
- * @param {*} email - Admin's email address
- * @param {*} newPassword - Admin's new password
- * @returns - Success message upon successful reset
- */
-const resetAdminPassword = async (email, newPassword) => {
-    const admin = await adminModel.findOne({ email });
-
-    if (!admin) {
-        throw new Error('Admin not found');
-    }
-
-    // Password validation
-    if (!await validatePassword(newPassword)) {
-        throw new Error('A new password of 8 or more characters is required');
-    } 
-
-    const hashedPW = await bcrypt.hash(newPassword, 10);
-
-    admin.password = hashedPW;
-    await admin.save();
-    return { message: 'Password reset successfully' };
-};
-
-export { registerEducator, deleteEducator, registerAdmin, resetAdminPassword };
+export { registerEducator, deleteEducator, registerAdmin };

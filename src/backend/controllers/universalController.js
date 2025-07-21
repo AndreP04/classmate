@@ -1,4 +1,4 @@
-import { loginUser } from "../services/universalService";
+import { loginUser, resetPassword } from "../services/universalService.js";
 
 /**
  * Log in an existing educator
@@ -17,10 +17,30 @@ const login = async (req, res) => {
             return res.status(401).json('Incorrect email address or password');
         }
 
-        res.status(200).json('Login successful');
+        res.status(200).json({
+            message: 'Login successful'
+        });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 };
 
-export { login };
+/**
+ * Reset the user's password
+ * @param {*} req - Request
+ * @param {*} res - Response
+ */
+const resetUserPassword = async (req, res) => {
+    try {
+        const { email, newPassword } = req.body;
+        const result = await resetPassword(email, newPassword);
+
+        res.status(200).json({
+            message: result.message
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+export { login, resetUserPassword };

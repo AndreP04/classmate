@@ -19,7 +19,7 @@ const ResetPasswordForm = () => {
         }
 
         try {
-            await instance.patch('/admin/reset-password', {
+            await instance.patch('/auth/reset-password', {
                 email,
                 newPassword: newPW
             });

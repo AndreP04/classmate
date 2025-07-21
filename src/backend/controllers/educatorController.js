@@ -1,7 +1,6 @@
 import {
     registerStudent, 
-    deleteStudent, 
-    resetPassword, 
+    deleteStudent,
     searchStudent, 
     getAllStudents
 } from '../services/educatorService.js';
@@ -60,25 +59,6 @@ const removeStudent = async (req, res) => {
 
 
 /**
- * Reset the educator's password
- * @param {*} req - Request
- * @param {*} res - Response
- */
-const resetPW = async (req, res) => {
-    try {
-        const { email, newPassword } = req.body;
-        const result = await resetPassword(email, newPassword);
-
-        res.status(200).json({
-            message: result.message
-        });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
-
-/**
  * Search for existing students
  * @param {*} req - Request
  * @param {*} res - Response
@@ -121,8 +101,7 @@ const allStudents = async (req, res) => {
 
 export {
     addStudent,
-    removeStudent, 
-    resetPW, 
+    removeStudent,
     search, 
     allStudents
 };

@@ -14,18 +14,17 @@ const LoginForm = () => {
         e.preventDefault();
         
         try {
-            await instance.post('/classmate/login-educator', {
+            await instance.post('/auth/login', {
                 email,
                 password
             });
 
             // Redirect to home page
-            router.push('/home');
+            router.push('/portals/admin'); //! Distinguish between roles (Admin/Educator)
 
 
         } catch (err: any) {
-            console.error(`Failed to log in: ${err}`);
-            alert('Failed to log in');
+            alert('Incorrect email or password entered');
         }
     };
 

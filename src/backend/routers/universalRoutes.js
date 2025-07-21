@@ -1,8 +1,9 @@
-import { login } from "../controllers/universalController,js";
+import { login, resetUserPassword } from "../controllers/universalController.js";
 import express from 'express';
 const userRouter = express.Router();
 
 // Routes
-userRouter.post('/login');
+userRouter.post('/login', login);
+userRouter.patch('/reset-password', resetUserPassword);
 
 export { userRouter };
