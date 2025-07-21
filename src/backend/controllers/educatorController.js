@@ -1,36 +1,10 @@
 import {
-    loginEducator, 
     registerStudent, 
     deleteStudent, 
     resetPassword, 
     searchStudent, 
     getAllStudents
 } from '../services/educatorService.js';
-
-
-/**
- * Log in an existing educator
- * @param {*} req - Request
- * @param {*} res - Response
- */
-const login = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-
-        if (!email || !password) {
-            return res.status(400).json('Email and password are required');
-        }
-
-        if (!await loginEducator(email, password)) {
-            return res.status(401).json('Incorrect email address or password');
-        }
-
-        res.status(200).json('Login successful');
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
 
 /**
  * Register a new student
@@ -146,7 +120,6 @@ const allStudents = async (req, res) => {
 
 
 export {
-    login,
     addStudent,
     removeStudent, 
     resetPW, 

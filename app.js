@@ -3,13 +3,15 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { educatorRouter } from './src/backend/routers/educatorRoutes.js';
 import { adminRouter } from './src/backend/routers/adminRoutes.js';
+import { userRouter } from './src/backend/routers/universalRoutes.js';
 import cors from "cors";
 dotenv.config();
 const app = express();
 
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
-app.use('/classmate', educatorRouter);
+app.use('/auth', userRouter);
+app.use('/educator', educatorRouter);
 app.use('/admin', adminRouter);
 
 try {

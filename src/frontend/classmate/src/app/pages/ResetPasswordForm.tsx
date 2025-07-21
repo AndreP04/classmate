@@ -7,7 +7,6 @@ import Link from 'next/link';
 const ResetPasswordForm = () => {
     const router = useRouter();
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [newPW, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -51,15 +50,6 @@ const ResetPasswordForm = () => {
                     className="w-full p-3 border rounded text-gray-700"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-
-                <input
-                    type="password"
-                    placeholder="Current Password"
-                    className="w-full p-3 border rounded text-gray-700"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
                     required
                 />
 

@@ -5,29 +5,6 @@ import bcrypt from 'bcrypt';
 
 
 /**
- * Service to log in an existing educator
- * @param {string} email - Educator's username
- * @param {string} password - Educator's password
- * @returns {boolean} True or false based on log in success
- */
-const loginEducator = async (email, password) => {
-    const educator = await educatorModel.findOne({ email });
-    if (!educator) {
-        console.error('Educator not found');
-        return false;
-    }
-
-    const isMatch = await bcrypt.compare(password, educator.password);
-    if (!isMatch) {
-        console.error('Invalid password');
-        return false;
-    }
-
-    return true;
-};
-
-
-/**
  * Service to register a new student
  * @param {*} studentData - New student's data
  * @returns - Newly created user data
