@@ -14,13 +14,17 @@ const LoginForm = () => {
         e.preventDefault();
         
         try {
-            await instance.post('/auth/login', {
+            const { data } = await instance.post('/auth/login', {
                 email,
                 password
             });
 
-            // Redirect to home page
-            router.push('/portals/admin'); //! Distinguish between roles (Admin/Educator)
+            // Get user role
+            const role = data.role;
+
+            // Redirect based on user role
+            if (role === 'admin') router.push('/portals/admin');
+            if (role === 'educator') router.push('/portals/educator');
 
 
         } catch (err: any) {

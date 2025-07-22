@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
  * Service to log in an existing user account
  * @param {string} email - User's username
  * @param {string} password - User's password
- * @returns {boolean} True or false based on log in success
+ * @returns {object|null} Object of user information on success, otherwise null
  */
 const loginUser = async (email, password) => {
 
@@ -15,16 +15,16 @@ const loginUser = async (email, password) => {
 
     if (!user) {
         console.error('User not found');
-        return false;
+        return null;
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
         console.error('Invalid password');
-        return false;
+        return null;
     }
 
-    return true;
+    return user.role;
 };
 
 /**
