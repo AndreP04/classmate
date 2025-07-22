@@ -1,8 +1,8 @@
 "use client";
-import LoginForm from "@/app/pages/LoginForm";
+import AdminSignUpForm from "./pages/AdminRegisterForm";
 
-const LogInPage = () => {
-  return <LoginForm />
+const AdminRegisterPage = () => {
+  return <AdminSignUpForm />
 };
 
-export default LogInPage;
+export default AdminRegisterPage;

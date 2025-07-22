@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import instance from '@/lib/axios';
 import Link from 'next/link';
+import Image from "next/image";
 
 const ResetPasswordForm = () => {
     const router = useRouter();
@@ -41,6 +42,15 @@ const ResetPasswordForm = () => {
 
             {/* Login Form */}
             <form onSubmit={handleSubmit} className="max-w-md mx-auto p-8 bg-white rounded shadow space-y-4">
+
+                {/* Logo Image */}
+                <Image
+                    className="mx-auto border rounded-lg"
+                    src="/LoginLogo.PNG"
+                    alt="ClassMate Logo"
+                    width={900}
+                    height={200}
+                />
 
                 <h1 className="text-3xl font-bold text-center text-gray-700">Reset Password</h1>
 

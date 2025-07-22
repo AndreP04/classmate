@@ -16,22 +16,22 @@ const AdminSignUpForm = () => {
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("");
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = async (e: React.FormEvent) => { // TODO implement admin registration endpoint
+        // e.preventDefault();
 
-        try {
-            await instance.post('/auth/login', {
-                email,
-                password
-            });
+        // try {
+        //     await instance.post('/auth/login', {
+        //         email,
+        //         password
+        //     });
 
-            // Redirect to admin management page
-            router.push('/portals/admin');
+        //     // Redirect to admin management page
+        //     router.push('/portals/admin');
 
 
-        } catch (err: any) {
-            alert('Incorrect email or password entered');
-        }
+        // } catch (err: any) {
+        //     alert('Incorrect email or password entered');
+        // }
     };
 
     return (
@@ -100,9 +100,9 @@ const AdminSignUpForm = () => {
                     Sign Up
                 </button>
 
-                <Link href="/">
+                <Link href="/auth/login">
                     <button className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-800 transition cursor-pointer">
-                        Log In
+                        Already a member? Log In
                     </button>
                 </Link>
 

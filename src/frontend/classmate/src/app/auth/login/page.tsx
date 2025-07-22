@@ -24,7 +24,7 @@ const LoginForm = () => {
 
             // Redirect based on user role
             if (role === 'admin') router.push('/portals/admin');
-            if (role === 'educator') router.push('/portals/educator');
+            if (role === 'educator') router.push('/portals/educator'); //! Fix
 
 
         } catch (err: any) {
