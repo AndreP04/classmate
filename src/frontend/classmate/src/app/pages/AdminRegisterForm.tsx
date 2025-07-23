@@ -38,7 +38,7 @@ const AdminSignUpForm = () => {
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
 
             {/* Register Form */}
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto p-8 bg-white rounded shadow space-y-4">
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto p-8 bg-[#f5f5f6] rounded-2xl shadow space-y-4">
 
                 {/* Logo Image */}
                 <Image
@@ -96,12 +96,12 @@ const AdminSignUpForm = () => {
                     required
                 />
 
-                <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-800 transition cursor-pointer">
+                <button type="submit" className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
                     Sign Up
                 </button>
 
                 <Link href="/auth/login">
-                    <button className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-800 transition cursor-pointer">
+                    <button className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
                         Already a member? Log In
                     </button>
                 </Link>

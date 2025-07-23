@@ -1,39 +1,34 @@
 "use client";
+import Image from 'next/image'
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import instance from '@/lib/axios';
 import Link from 'next/link';
-import Image from "next/image";
 
-const ResetPasswordForm = () => {
+const LoginForm = () => {
     const router = useRouter();
     const [email, setEmail] = useState("");
-    const [newPW, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        if (newPW !== confirmPassword) {
-            alert("New passwords do not match");
-            return;
-        }
-
+        
         try {
-            await instance.patch('/auth/reset-password', {
+            const { data } = await instance.post('/auth/login', {
                 email,
-                newPassword: newPW
+                password
             });
 
-            alert("Password reset successful! Please log in.");
+            // Get user role
+            const role = data.role;
 
-            // Redirect to Login page
-            router.push('/');
+            // Redirect based on user role
+            if (role === 'admin') router.push('/portals/admin');
+            if (role === 'educator') router.push('/portals/educator'); //! Fix
 
 
         } catch (err: any) {
-            console.error(`Failed to reset password: ${err}`);
-            alert('Failed to reset password');
+            alert('Incorrect email or password entered');
         }
     };
 
@@ -47,12 +42,12 @@ const ResetPasswordForm = () => {
                 <Image
                     className="mx-auto border rounded-lg"
                     src="/LoginLogo.PNG"
-                    alt="ClassMate Logo"
+                    alt="Log In Image"
                     width={900}
                     height={200}
                 />
 
-                <h1 className="text-3xl font-bold text-center text-gray-700">Reset Password</h1>
+                <h1 className="text-3xl font-bold text-center text-gray-700">Welcome to ClassMate</h1>
 
                 <input
                     type="email"
@@ -65,29 +60,20 @@ const ResetPasswordForm = () => {
 
                 <input
                     type="password"
-                    placeholder="New Password"
+                    placeholder="Password"
                     className="w-full p-3 border rounded text-gray-700"
-                    value={newPW}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    required
-                />
-
-                <input
-                    type="password"
-                    placeholder="Confirm New Password"
-                    className="w-full p-3 border rounded text-gray-700"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                 />
 
                 <button type="submit" className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
-                    Reset Password
+                    Log In
                 </button>
 
-                <Link href="/auth/login">
+                <Link href="/auth/reset-password">
                     <button className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
-                        Back to Log In
+                        Forgot password?
                     </button>
                 </Link>
 
@@ -96,4 +82,4 @@ const ResetPasswordForm = () => {
     )
 };
 
-export default ResetPasswordForm;
+export default LoginForm;
