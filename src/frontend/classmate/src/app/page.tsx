@@ -1,8 +1,8 @@
 "use client";
-import AdminSignUpForm from "./pages/AdminRegisterForm";
+import HomePage from "./pages/HomeForm";
 
 const AdminRegisterPage = () => {
-  return <AdminSignUpForm />
+  return <HomePage />
 };
 
 export default AdminRegisterPage;

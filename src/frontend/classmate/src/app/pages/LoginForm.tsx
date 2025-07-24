@@ -47,7 +47,7 @@ const LoginForm = () => {
                     height={200}
                 />
 
-                <h1 className="text-3xl font-bold text-center text-gray-700">Welcome to ClassMate</h1>
+                <h1 className="text-3xl font-bold text-center text-gray-700">Log in to ClassMate</h1>
 
                 <input
                     type="email"
