@@ -1,7 +1,44 @@
 import { educatorModel } from "../models/educatorModel.js";
 import { adminModel } from "../models/adminModel.js";
-import { validatePassword } from "../utils/validation.js";
-import bcrypt from "bcrypt";
+import { validateEmail, validatePassword } from '../utils/validation.js';
+import bcrypt from 'bcrypt';
+
+/**
+ * Service to register a new user
+ * @param {*} educatorData - Stores the user's data
+ * @returns Newly created user
+ */
+const registerUser = async (userData) => {
+    if (!userData?.email || !userData?.password) {
+        throw new Error('Email and password are required');
+    }
+
+    // Check if an admin user already exists within an institution
+    if (await adminModel.findOne({ role: userData.role }) == "admin") {
+        userData.role = "educator";
+    }
+
+    // Check if user exists with email address
+    if (await educatorModel.findOne({ email: userData.email })) {
+        throw new Error('A user with this email address has already been registered');
+    }
+
+    // Validation
+    if (!await validateEmail(userData.email)) {
+        throw new Error('Invalid email address');
+    };
+
+    if (!await validatePassword(userData.password)) {
+        throw new Error('A password of 8 or more characters is required');
+    }
+
+    // Hash password
+    const hashedPW = await bcrypt.hash(userData.password, 10);
+    userData.password = hashedPW;
+
+    const newUser = userData.role == "educator" ? new educatorModel(userData) : new adminModel(userData);
+    return await newUser.save();
+};
 
 /**
  * Service to log in an existing user account
@@ -53,4 +90,4 @@ const resetPassword = async (email, newPassword) => {
     return { message: 'Password reset successfully' };
 };
 
-export { loginUser, resetPassword };
+export { loginUser, resetPassword, registerUser };

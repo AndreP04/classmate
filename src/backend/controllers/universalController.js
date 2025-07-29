@@ -1,4 +1,28 @@
-import { loginUser, resetPassword } from "../services/universalService.js";
+import { loginUser, registerUser, resetPassword } from "../services/universalService.js";
+
+/**
+ * Register a new user
+ * @param {*} req - Request
+ * @param {*} res - Response
+ * @returns Newly created user
+ */
+const userRegister = async (req, res) => {
+    try {
+        const newUser = await registerUser(req.body);
+
+        return res.status(201).json({
+            message: 'User registered successfully',
+            user: {
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                emailAddress: newUser.email,
+                role: newUser.role
+            }
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
 
 /**
  * Log in an existing educator
@@ -47,4 +71,4 @@ const resetUserPassword = async (req, res) => {
     }
 };
 
-export { login, resetUserPassword };
+export { userRegister, login, resetUserPassword };

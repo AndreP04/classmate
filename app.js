@@ -10,9 +10,9 @@ const app = express();
 
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
-app.use('/auth', userRouter);
-app.use('/educator', educatorRouter);
-app.use('/admin', adminRouter);
+app.use('/classmate', userRouter);
+app.use('/classmate/educator', educatorRouter);
+app.use('/classmate/admin', adminRouter);
 
 try {
 
