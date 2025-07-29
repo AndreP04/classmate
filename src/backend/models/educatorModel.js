@@ -13,10 +13,6 @@ const educatorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    institutionType: {
-        type: String,
-        required: true
-    },
     email: {
         type: String,
         required: true

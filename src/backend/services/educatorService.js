@@ -48,8 +48,7 @@ const searchStudent = async (firstName) => {
         lastName: student.lastName,
         age: student.age,
         grade: student.grade,
-        institution: student.institution,
-        institutionType: student.institutionType
+        institution: student.institution
     }));
 };
 

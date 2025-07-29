@@ -20,10 +20,6 @@ const studentSchema = new mongoose.Schema({
     institution: {
         type: String,
         required: true
-    },
-    institutionType: {
-        type: String,
-        required: true
     }
 },
 {

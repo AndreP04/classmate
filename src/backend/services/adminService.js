@@ -15,7 +15,7 @@ const registerAdmin = async (adminData) => {
 
     // Check if admin user exists with email address
     if (await adminModel.findOne({ email: adminData.email })) {
-        throw new Error('An admin user with this email address has already been registered');
+        throw new Error('A user with this email address has already been registered');
     }
 
     // Validation
