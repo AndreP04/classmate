@@ -1,11 +1,10 @@
-import { educatorModel } from "../models/educatorModel.js";
-import { adminModel } from "../models/adminModel.js";
+import { userModel } from "../models/userModel.js";
 import { validateEmail, validatePassword } from '../utils/validation.js';
 import bcrypt from 'bcrypt';
 
 /**
  * Service to register a new user
- * @param {*} educatorData - Stores the user's data
+ * @param {*} userData - Stores the user's data
  * @returns Newly created user
  */
 const registerUser = async (userData) => {
@@ -14,12 +13,12 @@ const registerUser = async (userData) => {
     }
 
     // Check if an admin user already exists within an institution
-    if (await adminModel.findOne({ role: userData.role }) == "admin") {
+    if (await userModel.findOne({ role: userData.role }) == "admin") {
         userData.role = "educator";
     }
 
     // Check if user exists with email address
-    if (await educatorModel.findOne({ email: userData.email })) {
+    if (await userModel.findOne({ email: userData.email })) {
         throw new Error('A user with this email address has already been registered');
     }
 
@@ -36,7 +35,7 @@ const registerUser = async (userData) => {
     const hashedPW = await bcrypt.hash(userData.password, 10);
     userData.password = hashedPW;
 
-    const newUser = userData.role == "educator" ? new educatorModel(userData) : new adminModel(userData);
+    const newUser = new userModel(userData);
     return await newUser.save();
 };
 
@@ -48,7 +47,7 @@ const registerUser = async (userData) => {
  */
 const loginUser = async (email, password) => {
 
-    const user = await educatorModel.findOne({ email }) || await adminModel.findOne({ email });
+    const user = await userModel.findOne({ email });
 
     if (!user) {
         console.error('User not found');
@@ -72,7 +71,7 @@ const loginUser = async (email, password) => {
  */
 const resetPassword = async (email, newPassword) => {
     
-    const user = await adminModel.findOne({ email }) || await educatorModel.findOne({ email });
+    const user = await userModel.findOne({ email });
 
     if (!user) {
         throw new Error('User not found');
