@@ -1,4 +1,4 @@
-import { deleteEducator } from "../services/adminService.js";
+import { deleteEducator, getAllEducators } from "../services/adminService.js";
 
 /**
  * Delete an existing educator
@@ -25,4 +25,18 @@ const removeEducator = async (req, res) => {
     }
 };
 
-export { removeEducator };
+/**
+ * Fetch all educators
+ * @param {*} req - Request
+ * @param {*} res - Reponse
+ */
+const allEducators = async (req, res) => {
+    try {
+        const educators = await getAllEducators();
+        res.status(200).json(educators);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
+export { removeEducator, allEducators };

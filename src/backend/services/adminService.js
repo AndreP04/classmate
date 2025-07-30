@@ -17,4 +17,13 @@ const deleteEducator = async (email) => {
     return { message: 'Educator deleted successfully' };
 };
 
-export { deleteEducator };
+/**
+ * Service that returns all educators
+ * @returns All registered educators
+ */
+const getAllEducators = async () => {
+    const allEducators = await userModel.find({ role: "educator" });
+    return allEducators;
+}
+
+export { deleteEducator, getAllEducators };
