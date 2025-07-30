@@ -12,17 +12,12 @@ const registerUser = async (userData) => {
         throw new Error('Email and password are required');
     }
 
-    // Check if an admin user already exists within an institution
-    if (await userModel.findOne({ role: userData.role }) == "admin") {
-        userData.role = "educator";
-    }
-
     // Check if user exists with email address
     if (await userModel.findOne({ email: userData.email })) {
         throw new Error('A user with this email address has already been registered');
     }
 
-    // Validation
+    // Validate email and password
     if (!await validateEmail(userData.email)) {
         throw new Error('Invalid email address');
     };
@@ -30,6 +25,13 @@ const registerUser = async (userData) => {
     if (!await validatePassword(userData.password)) {
         throw new Error('A password of 8 or more characters is required');
     }
+
+    // Check if an admin user exists and assign relevant role
+    const checkAdmin = await userModel.findOne({ 
+        role: "admin",
+        institution: userData.institution
+    });
+    userData.role = checkAdmin ? "educator" : "admin";
 
     // Hash password
     const hashedPW = await bcrypt.hash(userData.password, 10);
