@@ -44,13 +44,15 @@ const ResetPasswordForm = () => {
             <form onSubmit={handleSubmit} className="max-w-md mx-auto p-8 bg-[#f5f5f6] rounded-2xl shadow space-y-4">
 
                 {/* Logo Image */}
-                <Image
-                    className="mx-auto border rounded-lg"
-                    src="/LoginLogo.PNG"
-                    alt="ClassMate Logo"
-                    width={900}
-                    height={200}
-                />
+                <Link href="/">
+                    <Image
+                        className="mx-auto border rounded-lg"
+                        src="/LoginLogo.PNG"
+                        alt="ClassMate Logo"
+                        width={900}
+                        height={200}
+                    />
+                </Link>
 
                 <h1 className="text-3xl font-bold text-center text-gray-700">Reset Password</h1>
 

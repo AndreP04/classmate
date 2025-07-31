@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 
 const HomePage = () => {
     const router = useRouter();
@@ -10,13 +11,15 @@ const HomePage = () => {
             <section className="flex flex-col items-center justify-center text-center py-10 bg-[#f5f5f6]">
 
                 {/* Logo Image */}
-                <Image
-                    className="mx-auto rounded-lg"
-                    src="/iconsLogo.png"
-                    alt="Home Image"
-                    width={500}
-                    height={200}
-                />
+                <Link href="/">
+                    <Image
+                        className="mx-auto rounded-lg"
+                        src="/iconsLogo.png"
+                        alt="Home Image"
+                        width={500}
+                        height={200}
+                    />
+                </Link>
 
                 <h1 className="text-5xl font-bold mb-6">Welcome to ClassMate</h1>
                 <p className="text-lg max-w-xl mb-8">

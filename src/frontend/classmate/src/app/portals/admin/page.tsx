@@ -1,5 +1,9 @@
+import AdminPortalForm from "@/app/pages/AdminPortalForm";
+
 const AdminPortalPage = () => {
-    return <h1>Admin Portal</h1>
+    return (
+        <AdminPortalForm />
+    );
 };
 
 export default AdminPortalPage;
