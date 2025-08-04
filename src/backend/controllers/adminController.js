@@ -7,13 +7,13 @@ import { deleteEducator, getAllEducators } from "../services/adminService.js";
  */
 const removeEducator = async (req, res) => {
     try {
-        const { firstName } = req.body;
+        const { email } = req.body;
 
-        if (!firstName) {
-            return res.status(400).json('First name is required');
+        if (!email) {
+            return res.status(400).json('Educator email address is required');
         }
 
-        const result = await deleteEducator(firstName);
+        const result = await deleteEducator(email);
         if (result) {
             res.status(200).json(result);
         } else {

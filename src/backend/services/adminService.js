@@ -2,11 +2,11 @@ import { userModel } from "../models/userModel.js";
 
 /**
  * Service to delete an existing educator
- * @param {*} firstName - First name of the educator
+ * @param {*} email - Email address of the educator
  * @returns - Message indicating deletion success/failure
  */
 const deleteEducator = async (email) => {
-    const educator = await userModel.findOne({ email });
+    const educator = await userModel.findOne({ email, role: 'educator' });
 
     //If the educator does not exist, throw an error
     if (!educator) {
