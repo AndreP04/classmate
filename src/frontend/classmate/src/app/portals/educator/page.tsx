@@ -1,5 +1,9 @@
+import EducatorPortalForm from "@/app/pages/EducatorPortalForm";
+
 const EducatorPortalPage = () => {
-    return <h1>Educator Portal</h1>
+    return (
+        <EducatorPortalForm />
+    )
 };
 
 export default EducatorPortalPage;

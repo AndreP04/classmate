@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({ origin: 'http://localhost:3000',
-    methods: ['GET', 'POST', 'DELETE', 'PATCH']
+    methods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT']
  }));
 app.use(express.json());
 app.use('/classmate', userRouter);

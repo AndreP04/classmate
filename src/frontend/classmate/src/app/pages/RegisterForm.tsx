@@ -5,10 +5,9 @@ import { useRouter } from 'next/navigation';
 import instance from '@/lib/axios';
 import Link from 'next/link';
 
-const AdminSignUpForm = () => {
+const SignUpForm = () => {
     const router = useRouter();
 
-    // TODO implement admin register endpoint
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [institution, setInstitution] = useState("");
@@ -113,4 +112,4 @@ const AdminSignUpForm = () => {
     )
 };
 
-export default AdminSignUpForm;
+export default SignUpForm;

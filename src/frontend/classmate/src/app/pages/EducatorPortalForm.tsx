@@ -2,48 +2,38 @@
 import { useEffect, useState } from "react";
 import instance from "@/lib/axios";
 
-const AdminPortalForm = () => {
-    const [educators, setEducators] = useState([]);
+const EducatorPortalForm = () => {
+    const [students, setStudents] = useState([]);
 
-    // Fetch all educators on page load
+    // Fetch all students on page load
     useEffect(() => {
-        const fetchEducators = async () => {
+        const fetchStudents = async () => {
             try {
-                const { data } = await instance.get('/classmate/admin/all-educators');
-                setEducators(data);
+                const { data } = await instance.get('/classmate/educator/all-students');
+                setStudents(data);
             } catch (err) {
-                console.error(`Failed to retrieve educators: ${err}`)
+                console.error(`Failed to retrieve students: ${err}`)
             }
         };
 
-        fetchEducators();
+        fetchStudents();
     }, []);
 
-    // Delete an educator
-    const deleteEducator = async (email: string) => {
-        try {
-            await instance.delete('/classmate/admin/delete-educator', {
-                data: { email }
-            });
-            setEducators(prev => prev.filter(user => user.email !== email));
-        } catch (err) {
-            console.error(`Failed to delete educator: ${err}`);
-        }
-    };
+    // TODO Delete student endpoint
 
     return (
         <form>
             {/* Table */}
             <div className="w-full flex justify-between items-cente mb-3 mt-1 pl-3">
                 <div>
-                    <h3 className="text-4xl font-semibold text-white">Educators</h3>
+                    <h3 className="text-4xl font-semibold text-white">Students</h3>
                 </div>
                 <div className="ml-3">
                     <div className="w-full max-w-sm min-w-[200px] relative">
                         <div className="relative">
                             <input
                                 className="bg-white w-full pr-11 h-10 pl-3 py-2 placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-200 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
-                                placeholder="Find an educator" />
+                                placeholder="Find a student" />
                             <button
                                 className="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded "
                                 type="button"
@@ -72,7 +62,12 @@ const AdminPortalForm = () => {
                             </th>
                             <th className="p-4 border-b border-slate-200 bg-slate-300">
                                 <p className="text-sm font-semibold leading-none text-slate-700">
-                                    Email Address
+                                    Age
+                                </p>
+                            </th>
+                            <th className="p-4 border-b border-slate-200 bg-slate-300">
+                                <p className="text-sm font-semibold leading-none text-slate-700">
+                                    Grade
                                 </p>
                             </th>
                             <th className="p-4 border-b border-slate-200 bg-slate-300">
@@ -83,15 +78,16 @@ const AdminPortalForm = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {educators.map((educator) => (
-                            <tr key={educator.email} className="hover:bg-slate-300 border-b border-slate-200">
-                                <td className="p-4 py-5">{educator.firstName}</td>
-                                <td className="p-4 py-5">{educator.lastName}</td>
-                                <td className="p-4 py-5">{educator.email}</td>
-                                <td className="p-4 py-5">{educator.institution}</td>
+                        {students.map((student) => (
+                            <tr key={student.email} className="hover:bg-slate-300 border-b border-slate-200">
+                                <td className="p-4 py-5">{student.firstName}</td>
+                                <td className="p-4 py-5">{student.lastName}</td>
+                                <td className="p-4 py-5">{student.age}</td>
+                                <td className="p-4 py-5">{student.grade}</td>
+                                <td className="p-4 py-5">{student.institution}</td>
                                 <td className="p-4 py-5">
                                     <button
-                                        onClick={() => deleteEducator(educator.email)}
+                                        // onClick={() => deleteStudent(student.email)}
                                         className="cursor-pointer text-red-600 hover:bg-red-800 hover:text-white font-semibold border rounded py-2 px-2"
                                     >
                                         Delete
@@ -129,4 +125,4 @@ const AdminPortalForm = () => {
     );
 };
 
-export default AdminPortalForm;
+export default EducatorPortalForm;

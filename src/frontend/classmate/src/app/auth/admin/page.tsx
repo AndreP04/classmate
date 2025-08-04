@@ -1,8 +1,8 @@
-import AdminSignUpForm from "@/app/pages/AdminRegisterForm";
+import SignUpForm from "@/app/pages/RegisterForm";
 
 const AdminRegisterPage = () => {
     return (
-        <AdminSignUpForm />
+        <SignUpForm />
     );
 };
 
