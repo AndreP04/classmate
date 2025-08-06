@@ -1,7 +1,7 @@
 import LoginForm from "@/app/pages/LoginForm";
 
 const LoginPage = () => {
-    return <LoginForm />;
+  return <LoginForm />;
 };
 
 export default LoginPage;

@@ -6,10 +6,9 @@ import { studentModel } from "../models/studentModel.js";
  * @returns - Newly created user data
  */
 const registerStudent = async (studentData) => {
-    const newStudent = new studentModel(studentData);
-    return await newStudent.save();
+  const newStudent = new studentModel(studentData);
+  return await newStudent.save();
 };
-
 
 /**
  * Service to delete an existing student
@@ -17,17 +16,16 @@ const registerStudent = async (studentData) => {
  * @returns - Message indicating deletion success/failure
  */
 const deleteStudent = async (firstName) => {
-    const student = await studentModel.findOne({ firstName });
+  const student = await studentModel.findOne({ firstName });
 
-    //If the student does not exist, throw an error
-    if (!student) {
-        throw new Error('Specified student not found');
-    }
+  //If the student does not exist, throw an error
+  if (!student) {
+    throw new Error("Specified student not found");
+  }
 
-    await studentModel.deleteOne({ firstName });
-    return { message: 'Student deleted successfully' };
+  await studentModel.deleteOne({ firstName });
+  return { message: "Student deleted successfully" };
 };
-
 
 /**
  * Service to search for specific students
@@ -35,36 +33,30 @@ const deleteStudent = async (firstName) => {
  * @returns - Map of student's information
  */
 const searchStudent = async (firstName) => {
-    const regex = new RegExp(firstName, 'i');
-    const students = await studentModel.find({ firstName: {$regex: regex} });
+  const regex = new RegExp(firstName, "i");
+  const students = await studentModel.find({ firstName: { $regex: regex } });
 
-    if (!students) {
-        throw new Error('No students found');
-    }
+  if (!students) {
+    throw new Error("No students found");
+  }
 
-    // Return student details
-    return students.map(student => ({
-        firstName: student.firstName,
-        lastName: student.lastName,
-        age: student.age,
-        grade: student.grade,
-        institution: student.institution
-    }));
+  // Return student details
+  return students.map((student) => ({
+    firstName: student.firstName,
+    lastName: student.lastName,
+    age: student.age,
+    grade: student.grade,
+    institution: student.institution
+  }));
 };
-
 
 /**
  * Service to retrieve all students
  * @returns - A list of all students
  */
 const getAllStudents = async () => {
-    const allStudents = await studentModel.find({});
-    return allStudents;
+  const allStudents = await studentModel.find({});
+  return allStudents;
 };
 
-export {
-    registerStudent,
-    deleteStudent, 
-    searchStudent, 
-    getAllStudents
-};
+export { registerStudent, deleteStudent, searchStudent, getAllStudents };

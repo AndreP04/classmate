@@ -1,6 +1,6 @@
 import { userModel } from "../models/userModel.js";
-import { validateEmail, validatePassword } from '../utils/validation.js';
-import bcrypt from 'bcrypt';
+import { validateEmail, validatePassword } from "../utils/validation.js";
+import bcrypt from "bcrypt";
 
 /**
  * Service to register a new user
@@ -8,37 +8,37 @@ import bcrypt from 'bcrypt';
  * @returns Newly created user
  */
 const registerUser = async (userData) => {
-    if (!userData?.email || !userData?.password) {
-        throw new Error('Email and password are required');
-    }
+  if (!userData?.email || !userData?.password) {
+    throw new Error("Email and password are required");
+  }
 
-    // Check if user exists with email address
-    if (await userModel.findOne({ email: userData.email })) {
-        throw new Error('A user with this email address has already been registered');
-    }
+  // Check if user exists with email address
+  if (await userModel.findOne({ email: userData.email })) {
+    throw new Error("A user with this email address has already been registered");
+  }
 
-    // Validate email and password
-    if (!await validateEmail(userData.email)) {
-        throw new Error('Invalid email address');
-    };
+  // Validate email and password
+  if (!(await validateEmail(userData.email))) {
+    throw new Error("Invalid email address");
+  }
 
-    if (!await validatePassword(userData.password)) {
-        throw new Error('A password of 8 or more characters is required');
-    }
+  if (!(await validatePassword(userData.password))) {
+    throw new Error("A password of 8 or more characters is required");
+  }
 
-    // Check if an admin user exists and assign relevant role
-    const checkAdmin = await userModel.findOne({ 
-        role: "admin",
-        institution: userData.institution
-    });
-    userData.role = checkAdmin ? "educator" : "admin";
+  // Check if an admin user exists and assign relevant role
+  const checkAdmin = await userModel.findOne({
+    role: "admin",
+    institution: userData.institution
+  });
+  userData.role = checkAdmin ? "educator" : "admin";
 
-    // Hash password
-    const hashedPW = await bcrypt.hash(userData.password, 10);
-    userData.password = hashedPW;
+  // Hash password
+  const hashedPW = await bcrypt.hash(userData.password, 10);
+  userData.password = hashedPW;
 
-    const newUser = new userModel(userData);
-    return await newUser.save();
+  const newUser = new userModel(userData);
+  return await newUser.save();
 };
 
 /**
@@ -48,21 +48,20 @@ const registerUser = async (userData) => {
  * @returns {object|null} Object of user information on success, otherwise null
  */
 const loginUser = async (email, password) => {
+  const user = await userModel.findOne({ email });
 
-    const user = await userModel.findOne({ email });
+  if (!user) {
+    console.error("User not found");
+    return null;
+  }
 
-    if (!user) {
-        console.error('User not found');
-        return null;
-    }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    console.error("Invalid password");
+    return null;
+  }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        console.error('Invalid password');
-        return null;
-    }
-
-    return user.role;
+  return user.role;
 };
 
 /**
@@ -72,23 +71,22 @@ const loginUser = async (email, password) => {
  * @returns - Success message upon successful reset
  */
 const resetPassword = async (email, newPassword) => {
-    
-    const user = await userModel.findOne({ email });
+  const user = await userModel.findOne({ email });
 
-    if (!user) {
-        throw new Error('User not found');
-    }
+  if (!user) {
+    throw new Error("User not found");
+  }
 
-    // Password validation
-    if (!await validatePassword(newPassword)) {
-        throw new Error('A new password of 8 or more characters is required');
-    } 
+  // Password validation
+  if (!(await validatePassword(newPassword))) {
+    throw new Error("A new password of 8 or more characters is required");
+  }
 
-    const hashedPW = await bcrypt.hash(newPassword, 10);
+  const hashedPW = await bcrypt.hash(newPassword, 10);
 
-    user.password = hashedPW;
-    await user.save();
-    return { message: 'Password reset successfully' };
+  user.password = hashedPW;
+  await user.save();
+  return { message: "Password reset successfully" };
 };
 
 export { loginUser, resetPassword, registerUser };

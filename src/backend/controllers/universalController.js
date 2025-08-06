@@ -7,21 +7,21 @@ import { loginUser, registerUser, resetPassword } from "../services/universalSer
  * @returns Newly created user
  */
 const userRegister = async (req, res) => {
-    try {
-        const newUser = await registerUser(req.body);
+  try {
+    const newUser = await registerUser(req.body);
 
-        return res.status(201).json({
-            message: 'User registered successfully',
-            user: {
-                firstName: newUser.firstName,
-                lastName: newUser.lastName,
-                emailAddress: newUser.email,
-                role: newUser.role
-            }
-        });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+    return res.status(201).json({
+      message: "User registered successfully",
+      user: {
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        emailAddress: newUser.email,
+        role: newUser.role
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 /**
@@ -30,27 +30,27 @@ const userRegister = async (req, res) => {
  * @param {*} res - Response
  */
 const login = async (req, res) => {
-    try {
-        const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-        if (!email || !password) {
-            return res.status(400).json('Email and password are required');
-        }
-
-        if (!await loginUser(email, password)) {
-            return res.status(401).json('Incorrect email address or password');
-        }
-
-        // Get user's role
-        const role = await loginUser(email, password);
-
-        res.status(200).json({
-            message: 'Login successful',
-            role
-        });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+    if (!email || !password) {
+      return res.status(400).json("Email and password are required");
     }
+
+    if (!(await loginUser(email, password))) {
+      return res.status(401).json("Incorrect email address or password");
+    }
+
+    // Get user's role
+    const role = await loginUser(email, password);
+
+    res.status(200).json({
+      message: "Login successful",
+      role
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 /**
@@ -59,16 +59,16 @@ const login = async (req, res) => {
  * @param {*} res - Response
  */
 const resetUserPassword = async (req, res) => {
-    try {
-        const { email, newPassword } = req.body;
-        const result = await resetPassword(email, newPassword);
+  try {
+    const { email, newPassword } = req.body;
+    const result = await resetPassword(email, newPassword);
 
-        res.status(200).json({
-            message: result.message
-        });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+    res.status(200).json({
+      message: result.message
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 export { userRegister, login, resetUserPassword };

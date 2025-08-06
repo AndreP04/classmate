@@ -1,101 +1,90 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
-import instance from '@/lib/axios';
-import Link from 'next/link';
+import { useRouter } from "next/navigation";
+import instance from "@/lib/axios";
+import Link from "next/link";
 import Image from "next/image";
 
 const ResetPasswordForm = () => {
-    const router = useRouter();
-    const [email, setEmail] = useState("");
-    const [newPW, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [newPW, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-        if (newPW !== confirmPassword) {
-            alert("New passwords do not match");
-            return;
-        }
+    if (newPW !== confirmPassword) {
+      alert("New passwords do not match");
+      return;
+    }
 
-        try {
-            await instance.patch('/auth/reset-password', {
-                email,
-                newPassword: newPW
-            });
+    try {
+      await instance.patch("/auth/reset-password", {
+        email,
+        newPassword: newPW
+      });
 
-            alert("Password reset successful! Please log in.");
+      alert("Password reset successful! Please log in.");
 
-            // Redirect to Login page
-            router.push('/');
+      // Redirect to Login page
+      router.push("/");
+    } catch (err: any) {
+      console.error(`Failed to reset password: ${err}`);
+      alert("Failed to reset password");
+    }
+  };
 
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      {/* Login Form */}
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto p-8 bg-[#f5f5f6] rounded-2xl shadow space-y-4">
+        {/* Logo Image */}
+        <Link href="/">
+          <Image className="mx-auto border rounded-lg" src="/LoginLogo.PNG" alt="ClassMate Logo" width={900} height={200} />
+        </Link>
 
-        } catch (err: any) {
-            console.error(`Failed to reset password: ${err}`);
-            alert('Failed to reset password');
-        }
-    };
+        <h1 className="text-3xl font-bold text-center text-gray-700">Reset Password</h1>
 
-    return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <input
+          type="email"
+          placeholder="Email Address"
+          className="w-full p-3 border rounded text-gray-700"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-            {/* Login Form */}
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto p-8 bg-[#f5f5f6] rounded-2xl shadow space-y-4">
+        <input
+          type="password"
+          placeholder="New Password"
+          className="w-full p-3 border rounded text-gray-700"
+          value={newPW}
+          onChange={(e) => setNewPassword(e.target.value)}
+          required
+        />
 
-                {/* Logo Image */}
-                <Link href="/">
-                    <Image
-                        className="mx-auto border rounded-lg"
-                        src="/LoginLogo.PNG"
-                        alt="ClassMate Logo"
-                        width={900}
-                        height={200}
-                    />
-                </Link>
+        <input
+          type="password"
+          placeholder="Confirm New Password"
+          className="w-full p-3 border rounded text-gray-700"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
 
-                <h1 className="text-3xl font-bold text-center text-gray-700">Reset Password</h1>
+        <button type="submit" className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
+          Reset Password
+        </button>
 
-                <input
-                    type="email"
-                    placeholder="Email Address"
-                    className="w-full p-3 border rounded text-gray-700"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-
-                <input
-                    type="password"
-                    placeholder="New Password"
-                    className="w-full p-3 border rounded text-gray-700"
-                    value={newPW}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    required
-                />
-
-                <input
-                    type="password"
-                    placeholder="Confirm New Password"
-                    className="w-full p-3 border rounded text-gray-700"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
-
-                <button type="submit" className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
-                    Reset Password
-                </button>
-
-                <Link href="/auth/login">
-                    <button className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
-                        Back to Log In
-                    </button>
-                </Link>
-
-            </form>
-        </div>
-    )
+        <Link href="/auth/login">
+          <button className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
+            Back to Log In
+          </button>
+        </Link>
+      </form>
+    </div>
+  );
 };
 
 export default ResetPasswordForm;

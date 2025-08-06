@@ -6,15 +6,15 @@ import { userModel } from "../models/userModel.js";
  * @returns - Message indicating deletion success/failure
  */
 const deleteEducator = async (email) => {
-    const educator = await userModel.findOne({ email, role: 'educator' });
+  const educator = await userModel.findOne({ email, role: "educator" });
 
-    //If the educator does not exist, throw an error
-    if (!educator) {
-        throw new Error('Specified educator not found');
-    }
+  //If the educator does not exist, throw an error
+  if (!educator) {
+    throw new Error("Specified educator not found");
+  }
 
-    await userModel.deleteOne({ email });
-    return { message: 'Educator deleted successfully' };
+  await userModel.deleteOne({ email });
+  return { message: "Educator deleted successfully" };
 };
 
 /**
@@ -22,8 +22,8 @@ const deleteEducator = async (email) => {
  * @returns All registered educators
  */
 const getAllEducators = async () => {
-    const allEducators = await userModel.find({ role: "educator" });
-    return allEducators;
-}
+  const allEducators = await userModel.find({ role: "educator" });
+  return allEducators;
+};
 
 export { deleteEducator, getAllEducators };

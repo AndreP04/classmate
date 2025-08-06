@@ -1,9 +1,7 @@
 import SignUpForm from "@/app/pages/RegisterForm";
 
 const AdminRegisterPage = () => {
-    return (
-        <SignUpForm />
-    );
+  return <SignUpForm />;
 };
 
 export default AdminRegisterPage;

@@ -2,7 +2,7 @@
 import HomePage from "./pages/HomeForm";
 
 const AdminRegisterPage = () => {
-  return <HomePage />
+  return <HomePage />;
 };
 
 export default AdminRegisterPage;
