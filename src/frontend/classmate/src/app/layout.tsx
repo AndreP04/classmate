@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ClassMate",
+  title: "ClassMate - Student Management Made Easy",
   description: "Manage student information easily with ClassMate.",
   icons: "/iconsLogo.png"
 };

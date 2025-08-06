@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import instance from "@/lib/axios";
+import { TrashIcon, PencilIcon } from '@heroicons/react/24/solid';
 
 const AdminPortalForm = () => {
     const [educators, setEducators] = useState([]);
 
-    // Fetch all educators on page load
     useEffect(() => {
         const fetchEducators = async () => {
             try {
@@ -19,7 +19,6 @@ const AdminPortalForm = () => {
         fetchEducators();
     }, []);
 
-    // Delete an educator
     const deleteEducator = async (email: string) => {
         try {
             await instance.delete('/classmate/admin/delete-educator', {
@@ -32,101 +31,91 @@ const AdminPortalForm = () => {
     };
 
     return (
-        <form>
-            {/* Table */}
-            <div className="w-full flex justify-between items-cente mb-3 mt-1 pl-3">
-                <div>
-                    <h3 className="text-4xl font-semibold text-white">Educators</h3>
-                </div>
-                <div className="ml-3">
-                    <div className="w-full max-w-sm min-w-[200px] relative">
-                        <div className="relative">
-                            <input
-                                className="bg-white w-full pr-11 h-10 pl-3 py-2 placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-200 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
-                                placeholder="Find an educator" />
-                            <button
-                                className="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded "
-                                type="button"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor" className="w-8 h-8 text-slate-600">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                                </svg>
-                            </button>
-                        </div>
+        <div className="min-h-screen bg-slate-900 text-slate-100 py-10 px-6 sm:px-12">
+            <form className="max-w-7xl mx-auto bg-slate-800 rounded-lg shadow-lg p-8">
+                
+                {/* Header and search */}
+                <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
+                    <h3 className="text-4xl font-bold tracking-tight">Educators</h3>
+                    <div className="mt-4 sm:mt-0 w-full sm:w-64 relative">
+                        <input
+                            type="text"
+                            placeholder="Find an educator"
+                            className="w-full h-10 pl-4 pr-10 rounded-md border border-slate-600 bg-slate-700 placeholder-slate-400 text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                        />
+                        <button
+                            type="button"
+                            className="absolute top-1.5 right-1.5 h-7 w-7 flex items-center justify-center rounded hover:bg-slate-600 transition"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 text-slate-300">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
-                <table className="w-full text-left table-auto min-w-max">
-                    <thead>
-                        <tr>
-                            <th className="p-4 border-b border-slate-200 bg-slate-300">
-                                <p className="text-sm font-semibold leading-none text-slate-700">
-                                    First Name
-                                </p>
-                            </th>
-                            <th className="p-4 border-b border-slate-200 bg-slate-300">
-                                <p className="text-sm font-semibold leading-none text-slate-700">
-                                    Last Name
-                                </p>
-                            </th>
-                            <th className="p-4 border-b border-slate-200 bg-slate-300">
-                                <p className="text-sm font-semibold leading-none text-slate-700">
-                                    Email Address
-                                </p>
-                            </th>
-                            <th className="p-4 border-b border-slate-200 bg-slate-300">
-                                <p className="text-sm font-semibold leading-none text-slate-700">
-                                    Institution
-                                </p>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {educators.map((educator) => (
-                            <tr key={educator.email} className="hover:bg-slate-300 border-b border-slate-200">
-                                <td className="p-4 py-5">{educator.firstName}</td>
-                                <td className="p-4 py-5">{educator.lastName}</td>
-                                <td className="p-4 py-5">{educator.email}</td>
-                                <td className="p-4 py-5">{educator.institution}</td>
-                                <td className="p-4 py-5">
-                                    <button
-                                        onClick={() => deleteEducator(educator.email)}
-                                        className="cursor-pointer text-red-600 hover:bg-red-800 hover:text-white font-semibold border rounded py-2 px-2"
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
 
-                <div className="flex justify-between items-center px-4 py-3">
-                    <div className="text-sm text-slate-700">
+                {/* Table */}
+                <div className="overflow-x-auto rounded-lg shadow-md bg-slate-700">
+                    <table className="min-w-full table-auto text-left border-collapse text-slate-100">
+                        <thead className="bg-slate-600 uppercase text-sm font-semibold text-slate-300">
+                            <tr>
+                                <th className="py-3 px-6 border-b border-slate-500">First Name</th>
+                                <th className="py-3 px-6 border-b border-slate-500">Last Name</th>
+                                <th className="py-3 px-6 border-b border-slate-500">Email Address</th>
+                                <th className="py-3 px-6 border-b border-slate-500">Institution</th>
+                                <th className="py-3 px-6 border-b border-slate-500">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {educators.map((educator) => (
+                                <tr key={educator.email} className="border-b border-slate-600">
+                                    <td className="py-4 px-6">{educator.firstName}</td>
+                                    <td className="py-4 px-6">{educator.lastName}</td>
+                                    <td className="py-4 px-6 break-words">{educator.email}</td>
+                                    <td className="py-4 px-6">{educator.institution}</td>
+                                    <td className="py-4 px-6">
+                                        <div className="flex space-x-3">
+                                            <button
+                                                onClick={async (e) => {
+                                                    e.preventDefault();
+                                                    await deleteEducator(educator.email);
+                                                }}
+                                                className="cursor-pointer flex items-center justify-center gap-1 px-3 py-2 bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition text-white font-semibold"
+                                                title="Delete Educator"
+                                            >
+                                                <TrashIcon className="h-5 w-5" />
+                                            </button>
+                                            <button
+                                                className=" cursor-pointer flex items-center justify-center gap-1 px-3 py-2 bg-slate-500 rounded-md hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition text-white font-semibold"
+                                                title="Edit Educator"
+                                            >
+                                                <PencilIcon className="h-5 w-5" />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+
+                {/* Pagination */}
+                <div className="flex justify-between items-center mt-6 text-sm text-slate-300">
+                    <div>
                         Showing <b>1-2</b> of 10
                     </div>
-                    <div className="flex space-x-1">
-                        <button className="px-3 py-1 min-w-9 min-h-9 text-sm font-normal text-slate-700 bg-white border border-slate-200 rounded hover:bg-slate-300 hover:border-slate-400 transition duration-200 ease">
-                            Prev
-                        </button>
-                        <button className="px-3 py-1 min-w-9 min-h-9 text-sm font-normal text-white bg-slate-800 border border-slate-800 rounded hover:bg-slate-600 hover:border-slate-600 transition duration-200 ease">
-                            1
-                        </button>
-                        <button className="px-3 py-1 min-w-9 min-h-9 text-sm font-normal text-slate-700 bg-white border border-slate-200 rounded hover:bg-slate-300 hover:border-slate-400 transition duration-200 ease">
-                            2
-                        </button>
-                        <button className="px-3 py-1 min-w-9 min-h-9 text-sm font-normal text-slate-700 bg-white border border-slate-200 rounded hover:bg-slate-300 hover:border-slate-400 transition duration-200 ease">
-                            3
-                        </button>
-                        <button className="px-3 py-1 min-w-9 min-h-9 text-sm font-normal text-slate-700 bg-white border border-slate-200 rounded hover:bg-slate-300 hover:border-slate-400 transition duration-200 ease">
-                            Next
-                        </button>
+                    <div className="flex space-x-2">
+                        <button className="px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 transition">Prev</button>
+                        <button className="px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white transition font-semibold">1</button>
+                        <button className="px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 transition">2</button>
+                        <button className="px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 transition">3</button>
+                        <button className="px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 transition">Next</button>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     );
+
 };
 
 export default AdminPortalForm;
