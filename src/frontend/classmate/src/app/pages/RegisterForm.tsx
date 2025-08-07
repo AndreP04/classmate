@@ -13,21 +13,25 @@ const SignUpForm = () => {
   const [institution, setInstitution] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    // TODO implement admin registration endpoint
-    // e.preventDefault();
-    // try {
-    //     await instance.post('/auth/login', {
-    //         email,
-    //         password
-    //     });
-    //     // Redirect to admin management page
-    //     router.push('/portals/admin');
-    // } catch (err: any) {
-    //     alert('Incorrect email or password entered');
-    // }
+    e.preventDefault();
+
+    try {
+      await instance.post("/classmate/register", {
+        firstName,
+        lastName,
+        institution,
+        email,
+        password
+      });
+
+      // Redirect to login after successful registration
+      router.push("/auth/login");
+    } catch (err: any) {
+      console.error(`User registration failed: ${err}`);
+      alert("Registration failed. Please try again.");
+    }
   };
 
   return (

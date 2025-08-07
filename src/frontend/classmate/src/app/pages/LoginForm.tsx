@@ -26,6 +26,7 @@ const LoginForm = () => {
       if (role === "admin") router.push("/portals/admin");
       if (role === "educator") router.push("/portals/educator");
     } catch (err: any) {
+      console.error(`Log in failed: ${err}`);
       alert("Incorrect email or password entered");
     }
   };
