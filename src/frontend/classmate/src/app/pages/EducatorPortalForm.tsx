@@ -58,16 +58,16 @@ const EducatorPortalForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 py-10 px-6 sm:px-12">
-      <form className="max-w-7xl mx-auto bg-slate-800 rounded-xl shadow-lg p-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#349495] via-gray-400 to-[#349495] text-slate-100 py-10 px-6 sm:px-12">
+      <form className="max-w-7xl mx-auto bg-[#f5f5f6] rounded-xl shadow-lg p-8">
         {/* Header and search */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
-          <h3 className="text-4xl font-extrabold tracking-tight">Students</h3>
+          <h3 className="text-gray-700 text-4xl font-extrabold tracking-tight">Students</h3>
         </div>
         {/* Table */}
-        <div className="overflow-x-auto rounded-lg shadow-md bg-slate-700">
+        <div className="overflow-x-auto rounded-lg shadow-md bg-gray-700">
           <table className="min-w-full table-auto text-left border-collapse text-slate-100">
-            <thead className="bg-slate-600 uppercase text-sm font-semibold text-slate-300">
+            <thead className="bg-slate-600 uppercase text-sm font-semibold text-white">
               <tr>
                 <th className="py-3 px-6 border-b border-slate-500">First Name</th>
                 <th className="py-3 px-6 border-b border-slate-500">Last Name</th>
@@ -79,7 +79,7 @@ const EducatorPortalForm = () => {
             </thead>
             <tbody>
               {students.map((student) => (
-                <tr key={student.firstName} className="border-b border-slate-600 hover:bg-slate-600 transition">
+                <tr key={student.firstName} className="border-b border-slate-600">
                   <td className="py-4 px-6">{student.firstName}</td>
                   <td className="py-4 px-6">{student.lastName}</td>
                   <td className="py-4 px-6">{student.age}</td>
@@ -110,20 +110,20 @@ const EducatorPortalForm = () => {
             </tbody>
           </table>
         </div>
-
         {/* Pagination // TODO Add functionality */}
-        <div className="flex justify-between items-center mt-6 text-sm text-slate-300">
+        <div className="flex justify-between items-center mt-6 text-sm text-gray-700">
           <div>
             Showing <b>1-2</b> of 10
           </div>
           <div className="flex space-x-2">
-            <button className="px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 transition">Prev</button>
-            <button className="px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white transition font-semibold">1</button>
-            <button className="px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 transition">2</button>
-            <button className="px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 transition">3</button>
-            <button className="px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 transition">Next</button>
+            <button className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition">Prev</button>
+            <button className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition">1</button>
+            <button className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition">2</button>
+            <button className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition">3</button>
+            <button className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition">Next</button>
           </div>
         </div>
+        white
       </form>
 
       {/* Confirmation Modal */}
