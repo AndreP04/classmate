@@ -1,4 +1,24 @@
-import { deleteEducator, getAllEducators } from "../services/adminService.js";
+import { searchEducator, deleteEducator, getAllEducators } from "../services/adminService.js";
+
+/**
+ * Search for existing educators
+ * @param {*} req - Request
+ * @param {*} res - Response
+ */
+const search = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const educatorList = await searchEducator(email);
+
+    if (!email) {
+      throw new Error("Email address is required to search");
+    }
+
+    res.status(200).json({ educatorList });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 /**
  * Delete an existing educator
@@ -38,4 +58,4 @@ const allEducators = async (req, res) => {
   }
 };
 
-export { removeEducator, allEducators };
+export { search, removeEducator, allEducators };

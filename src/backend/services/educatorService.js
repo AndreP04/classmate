@@ -37,7 +37,7 @@ const searchStudent = async (firstName) => {
   const regex = new RegExp(firstName, "i");
   const students = await studentModel.find({ firstName: { $regex: regex } });
 
-  if (!students) {
+  if (!students || students.length === 0) {
     throw new Error("No students found");
   }
 

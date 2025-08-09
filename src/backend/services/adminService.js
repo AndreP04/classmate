@@ -1,6 +1,29 @@
 import { userModel } from "../models/userModel.js";
 
 /**
+ * Service to search for a specific educator
+ * @param {*} email - Educator's email address
+ * @returns - Array of educator's information
+ */
+const searchEducator = async (email) => {
+  const regex = new RegExp(email, "i");
+  const educators = await userModel.find({ email: { $regex: regex } });
+
+  if (!educators || educators.length === 0) {
+    throw new Error("No educators found");
+  }
+
+  // Return educator details
+  return educators.map((educator) => ({
+    firstName: educator.firstName,
+    lastName: educator.lastName,
+    age: educator.age,
+    grade: educator.grade,
+    institution: educator.institution
+  }));
+};
+
+/**
  * Service to delete an existing educator
  * @param {*} email - Email address of the educator
  * @returns - Message indicating deletion success/failure
@@ -26,4 +49,4 @@ const getAllEducators = async () => {
   return allEducators;
 };
 
-export { deleteEducator, getAllEducators };
+export { searchEducator, deleteEducator, getAllEducators };
