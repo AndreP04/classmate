@@ -13,17 +13,18 @@ const registerStudent = async (studentData) => {
 /**
  * Service to delete an existing student
  * @param {*} firstName - First name of the student
+ * @param {*} lastName - Last name of the student
  * @returns - Message indicating deletion success/failure
  */
-const deleteStudent = async (firstName) => {
-  const student = await studentModel.findOne({ firstName });
+const deleteStudent = async (firstName, lastName) => {
+  const student = await studentModel.findOne({ firstName, lastName });
 
   //If the student does not exist, throw an error
   if (!student) {
     throw new Error("Specified student not found");
   }
 
-  await studentModel.deleteOne({ firstName });
+  await studentModel.deleteOne({ firstName, lastName });
   return { message: "Student deleted successfully" };
 };
 

@@ -33,13 +33,13 @@ const addStudent = async (req, res) => {
  */
 const removeStudent = async (req, res) => {
   try {
-    const { firstName } = req.body;
+    const { firstName, lastName } = req.body;
 
-    if (!firstName) {
-      return res.status(400).json("First name is required");
+    if (!firstName && !lastName) {
+      return res.status(400).json("First and last name of the student is required");
     }
 
-    const result = await deleteStudent(firstName);
+    const result = await deleteStudent(firstName, lastName);
     if (result) {
       res.status(200).json(result);
     } else {

@@ -7,6 +7,7 @@ const EducatorPortalForm = () => {
   const [students, setStudents] = useState([]);
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedFirstName, setSelectedFirstName] = useState<string | null>(null);
+  const [selectedLastName, setSelectedLastName] = useState<string | null>(null);
 
   // Fetch all students on page load
   useEffect(() => {
@@ -22,34 +23,38 @@ const EducatorPortalForm = () => {
     fetchStudents();
   }, []);
 
-  const deleteStudent = async (firstName: string) => {
+  // Delete students endpoint
+  const deleteStudent = async (firstName: string, lastName: string) => {
     try {
       await instance.delete("/classmate/educator/delete-student", {
-        data: { firstName }
+        data: { firstName, lastName }
       });
-      setStudents((prev) => prev.filter((user) => user.firstName !== firstName));
+      setStudents((prev) => prev.filter((user) => user.firstName !== firstName && user.lastName !== lastName));
     } catch (err) {
       console.error(`Failed to delete student: ${err}`);
     }
   };
 
   // Modals
-  const confirmDelete = (firstName: string) => {
+  const confirmDelete = (firstName: string, lastName: string) => {
     setSelectedFirstName(firstName);
+    setSelectedLastName(lastName);
     setShowConfirm(true);
   };
 
   const handleConfirm = () => {
-    if (selectedFirstName) {
-      deleteStudent(selectedFirstName);
+    if (selectedFirstName && selectedLastName) {
+      deleteStudent(selectedFirstName, selectedLastName);
     }
     setShowConfirm(false);
     setSelectedFirstName(null);
+    setSelectedLastName(null);
   };
 
   const handleCancel = () => {
     setShowConfirm(false);
     setSelectedFirstName(null);
+    setSelectedLastName(null);
   };
 
   return (
@@ -59,7 +64,6 @@ const EducatorPortalForm = () => {
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
           <h3 className="text-4xl font-extrabold tracking-tight">Students</h3>
         </div>
-
         {/* Table */}
         <div className="overflow-x-auto rounded-lg shadow-md bg-slate-700">
           <table className="min-w-full table-auto text-left border-collapse text-slate-100">
@@ -86,7 +90,7 @@ const EducatorPortalForm = () => {
                       <button
                         onClick={(e) => {
                           e.preventDefault();
-                          confirmDelete(student.firstName);
+                          confirmDelete(student.firstName, student.lastName);
                         }}
                         className="cursor-pointer flex items-center justify-center gap-1 px-3 py-2 bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition text-white font-semibold"
                         title="Delete Student"
@@ -107,7 +111,7 @@ const EducatorPortalForm = () => {
           </table>
         </div>
 
-        {/* Pagination */}
+        {/* Pagination // TODO Add functionality */}
         <div className="flex justify-between items-center mt-6 text-sm text-slate-300">
           <div>
             Showing <b>1-2</b> of 10
