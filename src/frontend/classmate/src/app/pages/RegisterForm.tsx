@@ -13,7 +13,18 @@ const SignUpForm = () => {
   const [institution, setInstitution] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
 
+  // Modal
+  const registerSuccess = () => {
+    setShowSuccess(true);
+  };
+
+  const handleSuccess = () => {
+    router.push("/auth/login");
+  };
+
+  // User register endpoint
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -26,8 +37,8 @@ const SignUpForm = () => {
         password
       });
 
-      // Redirect to login after successful registration
-      router.push("/auth/login");
+      // Show modal
+      setShowSuccess(true);
     } catch (err: any) {
       console.error(`User registration failed: ${err}`);
       alert("Registration failed. Please try again.");
@@ -100,6 +111,24 @@ const SignUpForm = () => {
           </button>
         </Link>
       </form>
+
+      {/* Registration Success Modal */}
+      {showSuccess && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+          <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
+            <h2 className="text-xl font-semibold mb-4 text-white">Welcome to ClassMate!</h2>
+            <p className="mb-6 text-slate-300">You have been successfully registered. Please continue to the log in form.</p>
+            <div className="flex justify-center space-x-4">
+              <button
+                onClick={handleSuccess}
+                className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer"
+              >
+                Proceed to log in
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

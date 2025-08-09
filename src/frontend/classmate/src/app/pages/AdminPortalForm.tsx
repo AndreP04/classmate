@@ -8,6 +8,7 @@ const AdminPortalForm = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedEmail, setSelectedEmail] = useState<string | null>(null);
 
+  // Fetch all educators on page load
   useEffect(() => {
     const fetchEducators = async () => {
       try {
