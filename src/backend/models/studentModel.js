@@ -21,7 +21,14 @@ const studentSchema = new mongoose.Schema(
     institution: {
       type: String,
       required: true
-    }
+    },
+    guardians: [
+      {
+        name: String,
+        phoneNumber: String,
+        relationship: String
+      }
+    ]
   },
   {
     collection: "STUDENT"

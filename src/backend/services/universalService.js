@@ -1,6 +1,10 @@
+import jwt from "jsonwebtoken";
 import { userModel } from "../models/userModel.js";
 import { validateEmail, validatePassword } from "../utils/validation.js";
 import bcrypt from "bcrypt";
+
+const jwtSecret = process.env.JWT_SECRET;
+const jwtExpire = "1h";
 
 /**
  * Service to register a new user
@@ -61,7 +65,17 @@ const loginUser = async (email, password) => {
     return null;
   }
 
-  return user.role;
+  // Create JWT payload
+  const payload = {
+    id: user._id,
+    role: user.role,
+    email: user.email
+  };
+
+  // Sign token
+  const token = jwt.sign(payload, jwtSecret, { expiresIn: jwtExpire });
+
+  return { token, role: user.role };
 };
 
 /**

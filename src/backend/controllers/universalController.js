@@ -36,17 +36,20 @@ const login = async (req, res) => {
     if (!email || !password) {
       return res.status(400).json("Email and password are required");
     }
-
-    if (!(await loginUser(email, password))) {
+    const authResult = await loginUser(email, password);
+    if (!authResult) {
       return res.status(401).json("Incorrect email address or password");
     }
 
-    // Get user's role
-    const role = await loginUser(email, password);
+    res.cookie("token", authResult.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict"
+    });
 
     res.status(200).json({
       message: "Login successful",
-      role
+      role: authResult.role
     });
   } catch (err) {
     res.status(500).json({ message: err.message });

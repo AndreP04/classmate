@@ -5,11 +5,13 @@ import { educatorRouter } from "./src/backend/routers/educatorRoutes.js";
 import { adminRouter } from "./src/backend/routers/adminRoutes.js";
 import { userRouter } from "./src/backend/routers/universalRoutes.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
 
 app.use(cors({ origin: "http://localhost:3000", methods: ["GET", "POST", "DELETE", "PATCH", "PUT"] }));
 app.use(express.json());
+app.use(cookieParser());
 app.use("/classmate", userRouter);
 app.use("/classmate/educator", educatorRouter);
 app.use("/classmate/admin", adminRouter);
