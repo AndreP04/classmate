@@ -17,8 +17,7 @@ const addStudent = async (req, res) => {
         lastName: newStudent.lastName,
         age: newStudent.age,
         grade: newStudent.grade,
-        institution: newStudent.institution,
-        institutionType: newStudent.institutionType
+        institution: newStudent.institution
       }
     });
   } catch (err) {

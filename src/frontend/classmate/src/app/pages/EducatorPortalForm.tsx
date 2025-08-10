@@ -187,7 +187,7 @@ const EducatorPortalForm = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
           <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
             <h2 className="text-xl font-semibold mb-4 text-white">Are you sure?</h2>
-            <p className="mb-6 text-slate-300">Do you really want to delete this student? This action cannot be undone.</p>
+            <p className="mb-6 text-slate-300">Are you sure you want to delete this student? This action cannot be undone.</p>
             <div className="flex justify-center space-x-4">
               <button
                 onClick={handleConfirm}
