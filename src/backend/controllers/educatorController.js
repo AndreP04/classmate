@@ -57,14 +57,13 @@ const removeStudent = async (req, res) => {
  */
 const search = async (req, res) => {
   try {
-    const { firstName } = req.body;
-    const studentList = await searchStudent(firstName);
-
-    if (!firstName) {
-      throw new Error("First name is required to search");
+    const { searchTerm } = req.query;
+    if (!searchTerm) {
+      return res.status(400).json({ message: "Search term is required" });
     }
 
-    res.status(200).json({ studentList });
+    const students = await searchStudent(searchTerm);
+    res.status(200).json(students);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

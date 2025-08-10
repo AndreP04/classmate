@@ -8,6 +8,7 @@ const EducatorPortalForm = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedFirstName, setSelectedFirstName] = useState<string | null>(null);
   const [selectedLastName, setSelectedLastName] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Fetch all students on page load
   useEffect(() => {
@@ -22,6 +23,28 @@ const EducatorPortalForm = () => {
 
     fetchStudents();
   }, []);
+
+  // Search students endpoint
+  const searchStudents = async () => {
+    try {
+      const { data } = await instance.get("/classmate/educator/search-students", {
+        params: { searchTerm }
+      });
+      setStudents(data);
+    } catch (err) {
+      console.error(`Failed to retrieve searched students: ${err}`);
+    }
+  };
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      if (searchTerm.trim().length >= 2) {
+        searchStudents();
+      }
+    }, 100);
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchTerm]);
 
   // Delete students endpoint
   const deleteStudent = async (firstName: string, lastName: string) => {
@@ -67,12 +90,17 @@ const EducatorPortalForm = () => {
             <input
               type="text"
               placeholder="Find a student"
-              // value={}
-              // onChange={}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full h-10 pl-4 pr-10 rounded-md border border-slate-600 bg-slate-700 placeholder-slate-400 text-white focus:outline-none focus:ring-2 focus:ring-[#349495] focus:border-[#349495] transition"
             />
             <button
               type="button"
+              onClick={() => {
+                if (searchTerm.trim()) {
+                  searchStudents();
+                }
+              }}
               className="cursor-pointer absolute top-1.5 right-1.5 h-7 w-7 flex items-center justify-center rounded hover:bg-slate-600 transition"
             >
               <svg

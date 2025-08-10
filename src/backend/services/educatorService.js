@@ -29,26 +29,28 @@ const deleteStudent = async (firstName, lastName) => {
 };
 
 /**
- * Service to search for specific students
- * @param {*} firstName - Student's first name
- * @returns - Map of student's information
+ * Service to search for a specific student
+ * @param {*} searchTerm - Query used for search
+ * @returns - Array of student's information
  */
-const searchStudent = async (firstName) => {
-  const regex = new RegExp(firstName, "i");
-  const students = await studentModel.find({ firstName: { $regex: regex } });
+const searchStudent = async (searchTerm) => {
+  const regex = new RegExp(searchTerm, "i");
+  const students = await studentModel.find(
+    {
+      $or: [{ firstName: { $regex: regex } }, { lastName: { $regex: regex } }, { institution: { $regex: regex } }]
+    },
+    {
+      firstName: 1,
+      lastName: 1,
+      age: 1,
+      grade: 1,
+      institution: 1,
+      _id: 0
+    }
+  );
 
-  if (!students || students.length === 0) {
-    throw new Error("No students found");
-  }
-
-  // Return student details
-  return students.map((student) => ({
-    firstName: student.firstName,
-    lastName: student.lastName,
-    age: student.age,
-    grade: student.grade,
-    institution: student.institution
-  }));
+  // Return searched students
+  return students;
 };
 
 /**
