@@ -2,25 +2,34 @@ import { userModel } from "../models/userModel.js";
 
 /**
  * Service to search for a specific educator
- * @param {*} email - Educator's email address
+ * @param {*} searchTerm - Query used for search
  * @returns - Array of educator's information
  */
-const searchEducator = async (email) => {
-  const regex = new RegExp(email, "i");
-  const educators = await userModel.find({ email: { $regex: regex } });
+const searchEducator = async (searchTerm) => {
+  const regex = new RegExp(searchTerm, "i");
+  const educators = await userModel.find(
+    {
+      role: { $ne: "admin" }, // Exclude admin users
+      $or: [
+        { firstName: { $regex: regex } },
+        { lastName: { $regex: regex } },
+        { email: { $regex: regex } },
+        { institution: { $regex: regex } }
+      ]
+    },
+    {
+      firstName: 1,
+      lastName: 1,
+      email: 1,
+      age: 1,
+      grade: 1,
+      institution: 1,
+      _id: 0
+    }
+  );
 
-  if (!educators || educators.length === 0) {
-    throw new Error("No educators found");
-  }
-
-  // Return educator details
-  return educators.map((educator) => ({
-    firstName: educator.firstName,
-    lastName: educator.lastName,
-    age: educator.age,
-    grade: educator.grade,
-    institution: educator.institution
-  }));
+  // Return searched educators
+  return educators;
 };
 
 /**

@@ -7,6 +7,7 @@ const AdminPortalForm = () => {
   const [educators, setEducators] = useState([]);
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedEmail, setSelectedEmail] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Fetch all educators on page load
   useEffect(() => {
@@ -21,6 +22,28 @@ const AdminPortalForm = () => {
 
     fetchEducators();
   }, []);
+
+  // Search educators endpoint
+  const searchEducators = async () => {
+    try {
+      const { data } = await instance.get("/classmate/admin/search-educators", {
+        params: { searchTerm }
+      });
+      setEducators(data);
+    } catch (err) {
+      console.error(`Failed to retrieve searched educators: ${err}`);
+    }
+  };
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      if (searchTerm.trim().length >= 2) {
+        searchEducators();
+      }
+    }, 100);
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchTerm]);
 
   // Delete educator endpoint
   const deleteEducator = async (email: string) => {
@@ -63,12 +86,17 @@ const AdminPortalForm = () => {
             <input
               type="text"
               placeholder="Find an educator"
-              // value={}
-              // onChange={}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full h-10 pl-4 pr-10 rounded-md border border-slate-600 bg-slate-700 placeholder-slate-400 text-white focus:outline-none focus:ring-2 focus:ring-[#349495] focus:border-[#349495] transition"
             />
             <button
               type="button"
+              onClick={() => {
+                if (searchTerm.trim()) {
+                  searchEducators();
+                }
+              }}
               className="cursor-pointer absolute top-1.5 right-1.5 h-7 w-7 flex items-center justify-center rounded hover:bg-slate-600 transition"
             >
               <svg

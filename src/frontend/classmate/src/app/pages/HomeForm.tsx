@@ -17,7 +17,7 @@ const HomePage = () => {
         <p className="text-lg max-w-xl mb-8">A modern tool for educators to manage student information efficiently and securely.</p>
         <div className="space-x-4">
           <button
-            onClick={() => router.push("/auth/admin")}
+            onClick={() => router.push("/auth/register")}
             className="bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer"
           >
             Get Started with ClassMate
