@@ -57,6 +57,20 @@ const login = async (req, res) => {
 };
 
 /**
+ * Log out an educator
+ * @param {*} req - Request
+ * @param {*} res - Response
+ */
+const logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict"
+  });
+  res.status(200).json({ message: "Logged out successfully" });
+};
+
+/**
  * Reset the user's password
  * @param {*} req - Request
  * @param {*} res - Response
@@ -74,4 +88,4 @@ const resetUserPassword = async (req, res) => {
   }
 };
 
-export { userRegister, login, resetUserPassword };
+export { userRegister, login, logout, resetUserPassword };

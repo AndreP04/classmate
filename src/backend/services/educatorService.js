@@ -37,7 +37,7 @@ const searchStudent = async (searchTerm) => {
   const regex = new RegExp(searchTerm, "i");
   const students = await studentModel.find(
     {
-      $or: [{ firstName: { $regex: regex } }, { lastName: { $regex: regex } }, { institution: { $regex: regex } }]
+      $or: [{ firstName: { $regex: regex } }, { lastName: { $regex: regex } }]
     },
     {
       firstName: 1,
@@ -45,6 +45,7 @@ const searchStudent = async (searchTerm) => {
       age: 1,
       grade: 1,
       institution: 1,
+      guardians: 1,
       _id: 0
     }
   );

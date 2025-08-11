@@ -27,6 +27,11 @@ const studentSchema = new mongoose.Schema(
         name: String,
         phoneNumber: String,
         relationship: String
+      },
+      {
+        name: String,
+        phoneNumber: String,
+        relationship: String
       }
     ]
   },
