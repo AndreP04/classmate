@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import instance from "@/lib/axios";
+import { useRouter } from "next/navigation";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/solid";
 
 const EducatorPortalForm = () => {
+  const router = useRouter();
   const [students, setStudents] = useState([]);
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedFirstName, setSelectedFirstName] = useState<string | null>(null);
@@ -58,6 +60,17 @@ const EducatorPortalForm = () => {
     }
   };
 
+  // Logout endpoint
+  const handleLogout = async () => {
+    try {
+      await instance.post("/classmate/logout", {}, { withCredentials: true });
+      router.push("/auth/login");
+    } catch (err) {
+      console.error(`Failed to log out user: ${err}`);
+      alert("Log out failed. Please try again");
+    }
+  };
+
   // Modals
   const confirmDelete = (firstName: string, lastName: string) => {
     setSelectedFirstName(firstName);
@@ -81,7 +94,25 @@ const EducatorPortalForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#349495] via-gray-400 to-[#349495] text-slate-100 py-10 px-6 sm:px-12">
+    <div className="min-h-screen bg-gradient-to-br from-[#349495] via-gray-400 to-[#349495] text-slate-100 py-10 px-6 sm:px-12 relative">
+      {/* Add Student and Logout button */}
+      <div className="flex justify-end mb-6 space-x-4">
+        <button
+          // onClick={}
+          className="cursor-pointer px-4 py-2 bg-slate-700 text-white rounded-md border border-slate-600 
+               hover:bg-slate-600 transition-colors"
+        >
+          Add Student
+        </button>
+
+        <button
+          onClick={handleLogout}
+          className="cursor-pointer px-4 py-2 bg-slate-700 text-white rounded-md border border-slate-600 
+               hover:bg-slate-600 transition-colors"
+        >
+          Logout
+        </button>
+      </div>
       <form className="max-w-7xl mx-auto bg-[#f5f5f6] rounded-xl shadow-lg p-8">
         {/* Header and search */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
