@@ -1,5 +1,20 @@
 import mongoose from "mongoose";
 
+const guardianSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  phoneNumber: {
+    type: Number,
+    required: true
+  },
+  relationship: {
+    type: String,
+    required: true
+  }
+});
+
 const studentSchema = new mongoose.Schema(
   {
     firstName: {
@@ -22,18 +37,15 @@ const studentSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    guardians: [
-      {
-        name: String,
-        phoneNumber: String,
-        relationship: String
-      },
-      {
-        name: String,
-        phoneNumber: String,
-        relationship: String
+    guardians: {
+      type: [guardianSchema],
+      validate: {
+        validator: function (arr) {
+          return arr.length > 0; // At least one guardian
+        },
+        message: "A student must have at least one guardian."
       }
-    ]
+    }
   },
   {
     collection: "STUDENT"
