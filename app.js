@@ -1,5 +1,6 @@
-import { connectDB } from "./src/backend/config/connectDB.js";
 import dotenv from "dotenv";
+dotenv.config();
+import { connectDB } from "./src/backend/config/connectDB.js";
 import express from "express";
 import { educatorRouter } from "./src/backend/routers/educatorRoutes.js";
 import { adminRouter } from "./src/backend/routers/adminRoutes.js";
@@ -9,7 +10,7 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
 
-app.use(cors({ origin: "http://localhost:3000", methods: ["GET", "POST", "DELETE", "PATCH", "PUT"] }));
+app.use(cors({ origin: "http://localhost:3000", methods: ["GET", "POST", "DELETE", "PATCH", "PUT"], credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/classmate", userRouter);

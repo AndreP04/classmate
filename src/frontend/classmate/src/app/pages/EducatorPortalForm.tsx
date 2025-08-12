@@ -64,6 +64,7 @@ const EducatorPortalForm = () => {
   const handleLogout = async () => {
     try {
       await instance.post("/classmate/logout", {}, { withCredentials: true });
+      localStorage.clear();
       router.push("/auth/login");
     } catch (err) {
       console.error(`Failed to log out user: ${err}`);

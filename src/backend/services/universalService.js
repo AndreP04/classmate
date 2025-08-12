@@ -3,9 +3,6 @@ import { userModel } from "../models/userModel.js";
 import { validateEmail, validatePassword } from "../utils/validation.js";
 import bcrypt from "bcrypt";
 
-const jwtSecret = process.env.JWT_SECRET;
-const jwtExpire = "1h";
-
 /**
  * Service to register a new user
  * @param {*} userData - Stores the user's data
@@ -73,7 +70,7 @@ const loginUser = async (email, password) => {
   };
 
   // Sign token
-  const token = jwt.sign(payload, jwtSecret, { expiresIn: jwtExpire });
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
 
   return { token, role: user.role };
 };

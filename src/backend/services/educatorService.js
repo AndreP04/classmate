@@ -42,10 +42,6 @@ const searchStudent = async (searchTerm) => {
     {
       firstName: 1,
       lastName: 1,
-      age: 1,
-      grade: 1,
-      institution: 1,
-      guardians: 1,
       _id: 0
     }
   );
