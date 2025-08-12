@@ -60,6 +60,11 @@ const EducatorPortalForm = () => {
     }
   };
 
+  // Add student route logic
+  const handleAddStudent = async () => {
+    router.push("/add/student");
+  };
+
   // Logout endpoint
   const handleLogout = async () => {
     try {
@@ -99,7 +104,7 @@ const EducatorPortalForm = () => {
       {/* Add Student and Logout button */}
       <div className="flex justify-end mb-6 space-x-4">
         <button
-          // onClick={}
+          onClick={handleAddStudent}
           className="cursor-pointer px-4 py-2 bg-slate-700 text-white rounded-md border border-slate-600 
                hover:bg-slate-600 transition-colors"
         >
@@ -162,17 +167,36 @@ const EducatorPortalForm = () => {
                 <th className="py-3 px-6 border-b border-slate-500">Age</th>
                 <th className="py-3 px-6 border-b border-slate-500">Grade</th>
                 <th className="py-3 px-6 border-b border-slate-500">Institution</th>
+                <th className="py-3 px-6 border-b border-slate-500">Guardians</th>
                 <th className="py-3 px-6 border-b border-slate-500">Actions</th>
               </tr>
             </thead>
             <tbody>
               {students.map((student) => (
-                <tr key={student.firstName} className="border-b border-slate-600">
+                <tr key={`${student.firstName}-${student.lastName}`} className="border-b border-slate-600">
                   <td className="py-4 px-6">{student.firstName}</td>
                   <td className="py-4 px-6">{student.lastName}</td>
                   <td className="py-4 px-6">{student.age}</td>
                   <td className="py-4 px-6">{student.grade}</td>
                   <td className="py-4 px-6">{student.institution}</td>
+
+                  {/* Guardians Column */}
+                  <td className="py-4 px-6">
+                    {student.guardians && student.guardians.length > 0 ? (
+                      <ul className="list-disc list-inside space-y-1">
+                        {student.guardians.map((guardian, index) => (
+                          <li key={index} className="text-sm">
+                            <span className="font-semibold">{guardian.name}</span> — {guardian.relationship}
+                            <span className="text-slate-300"> ({guardian.phoneNumber})</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <span className="italic text-slate-300">No guardians</span>
+                    )}
+                  </td>
+
+                  {/* Actions */}
                   <td className="py-4 px-6">
                     <div className="flex space-x-3">
                       <button

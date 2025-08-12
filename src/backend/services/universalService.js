@@ -71,7 +71,6 @@ const loginUser = async (email, password) => {
 
   // Sign token
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
-  console.log(token);
 
   return { token, role: user.role };
 };
