@@ -24,5 +24,3 @@ ClassMate is a web-based management platform designed to streamline student and 
 - MongoDB
 
 ---
-
-## 📁 Folder Structure
