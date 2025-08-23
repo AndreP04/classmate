@@ -31,6 +31,19 @@ const searchEducator = async (searchTerm) => {
 };
 
 /**
+ * Service to update educator information
+ * @param {*} id - Chosen educator ID in Mongo
+ * @param {*} updatedEducator - Updated educator information
+ * @returns Updated educator
+ */
+const editEducator = async (id, updatedEducator) => {
+  const educator = await userModel.findByIdAndUpdate(id, updatedEducator, {
+    new: true
+  });
+  return educator;
+};
+
+/**
  * Service to delete an existing educator
  * @param {*} email - Email address of the educator
  * @returns - Message indicating deletion success/failure
@@ -56,4 +69,4 @@ const getAllEducators = async () => {
   return allEducators;
 };
 
-export { searchEducator, deleteEducator, getAllEducators };
+export { searchEducator, editEducator, deleteEducator, getAllEducators };
