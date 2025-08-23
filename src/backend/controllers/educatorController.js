@@ -1,4 +1,4 @@
-import { registerStudent, deleteStudent, searchStudent, getAllStudents } from "../services/educatorService.js";
+import { registerStudent, editStudent, deleteStudent, searchStudent, getAllStudents } from "../services/educatorService.js";
 
 /**
  * Register a new student
@@ -20,6 +20,29 @@ const addStudent = async (req, res) => {
         institution: newStudent.institution,
         guardians: newStudent.guardians
       }
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+/**
+ * Modify the data of an existing student
+ * @param {*} req - Request
+ * @param {*} res - Response
+ * @returns Success response on succesful update.
+ */
+const modifyStudent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedStudent = req.body;
+    const student = await editStudent(id, updatedStudent);
+
+    if (!student) return res.status(404).json({ message: "Student not found" }); //! Unnecessary?
+
+    res.status(200).json({
+      message: "Student updated successfully",
+      student
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -88,4 +111,4 @@ const allStudents = async (req, res) => {
   }
 };
 
-export { addStudent, removeStudent, search, allStudents };
+export { addStudent, modifyStudent, removeStudent, search, allStudents };

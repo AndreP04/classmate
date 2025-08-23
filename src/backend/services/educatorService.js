@@ -11,6 +11,19 @@ const registerStudent = async (studentData) => {
 };
 
 /**
+ * Service to update student information
+ * @param {*} id - Chosen student ID in Mongo
+ * @param {*} updatedStudent - Updated student information
+ * @returns Updated student
+ */
+const editStudent = async (id, updatedStudent) => {
+  const student = await studentModel.findByIdAndUpdate(id, updatedStudent, {
+    new: true
+  });
+  return student;
+};
+
+/**
  * Service to delete an existing student
  * @param {*} firstName - First name of the student
  * @param {*} lastName - Last name of the student
@@ -59,4 +72,4 @@ const getAllStudents = async () => {
   return allStudents;
 };
 
-export { registerStudent, deleteStudent, searchStudent, getAllStudents };
+export { registerStudent, editStudent, deleteStudent, searchStudent, getAllStudents };

@@ -75,6 +75,8 @@ const loginUser = async (email, password) => {
   return { token, role: user.role };
 };
 
+
+
 /**
  * Service to reset the user's password
  * @param {*} email - User's email address
