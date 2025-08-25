@@ -10,6 +10,8 @@ const AdminPortalForm = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedEmail, setSelectedEmail] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editEducator, setEditEducator] = useState<any>(null);
 
   // Fetch all educators on page load
   useEffect(() => {
@@ -87,6 +89,23 @@ const AdminPortalForm = () => {
   const handleCancel = () => {
     setShowConfirm(false);
     setSelectedEmail(null);
+  };
+
+  // Modals
+  const openEditModal = (educator: any) => {
+    setEditEducator({ ...educator });
+    setShowEditModal(true);
+  };
+
+  const handleSaveEdit = async () => {
+    try {
+      await instance.put("/classmate/admin/update-educator", editEducator);
+      setEducators((prev) => prev.map((e) => (e._id === editEducator._id ? { ...editEducator } : e)));
+      setShowEditModal(false);
+      setEditEducator(null);
+    } catch (err) {
+      console.error("Failed to update educator:", err);
+    }
   };
 
   return (
@@ -172,6 +191,10 @@ const AdminPortalForm = () => {
                         <TrashIcon className="h-5 w-5" />
                       </button>
                       <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          openEditModal(educator);
+                        }}
                         className="cursor-pointer flex items-center justify-center gap-1 px-3 py-2 bg-slate-500 rounded-md hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition text-white font-semibold"
                         title="Edit Educator"
                       >
@@ -199,6 +222,59 @@ const AdminPortalForm = () => {
           </div>
         </div>
       </form>
+
+      {/* Edit student Modal */}
+      {showEditModal && editEducator && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+          <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
+            <h2 className="text-xl font-semibold mb-4 text-white">Edit Student</h2>
+            <div className="space-y-4">
+              <input
+                type="text"
+                value={editEducator.firstName}
+                onChange={(e) => setEditEducator({ ...editEducator, firstName: e.target.value })}
+                className="w-full p-2 border rounded"
+                placeholder="First Name"
+              />
+              <input
+                type="text"
+                value={editEducator.lastName}
+                onChange={(e) => setEditEducator({ ...editEducator, lastName: e.target.value })}
+                className="w-full p-2 border rounded"
+                placeholder="Last Name"
+              />
+              <input
+                type="text"
+                value={editEducator.institution}
+                onChange={(e) => setEditEducator({ ...editEducator, institution: e.target.value })}
+                className="w-full p-2 border rounded"
+                placeholder="Institution"
+              />
+              <input
+                type="email"
+                value={editEducator.email}
+                onChange={(e) => setEditEducator({ ...editEducator, email: e.target.value })}
+                className="w-full p-2 border rounded"
+                placeholder="Email Address"
+              />
+            </div>
+            <div className="flex justify-end mt-6 space-x-3">
+              <button
+                onClick={() => {
+                  setShowEditModal(false);
+                  setEditEducator(null);
+                }}
+                className="cursor-pointer px-4 py-2 bg-gray-500 rounded-md text-white"
+              >
+                Cancel
+              </button>
+              <button onClick={handleSaveEdit} className="cursor-pointer px-4 py-2 bg-blue-600 rounded-md text-white">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Confirmation Modal */}
       {showConfirm && (
