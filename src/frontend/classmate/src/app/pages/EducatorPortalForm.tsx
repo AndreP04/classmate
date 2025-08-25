@@ -11,6 +11,8 @@ const EducatorPortalForm = () => {
   const [selectedFirstName, setSelectedFirstName] = useState<string | null>(null);
   const [selectedLastName, setSelectedLastName] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editStudent, setEditStudent] = useState<any>(null);
 
   // Fetch all students on page load
   useEffect(() => {
@@ -97,6 +99,23 @@ const EducatorPortalForm = () => {
     setShowConfirm(false);
     setSelectedFirstName(null);
     setSelectedLastName(null);
+  };
+
+  // Edit student modal
+  const openEditModal = (student: any) => {
+    setEditStudent({ ...student });
+    setShowEditModal(true);
+  };
+
+  const handleSaveEdit = async () => {
+    try {
+      await instance.put("/classmate/educator/update-student", editStudent);
+      setStudents((prev) => prev.map((s) => (s._id === editStudent._id ? { ...editStudent } : s)));
+      setShowEditModal(false);
+      setEditStudent(null);
+    } catch (err) {
+      console.error("Failed to update student:", err);
+    }
   };
 
   return (
@@ -210,6 +229,10 @@ const EducatorPortalForm = () => {
                         <TrashIcon className="h-5 w-5" />
                       </button>
                       <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          openEditModal(student);
+                        }}
                         className="cursor-pointer flex items-center justify-center gap-1 px-3 py-2 bg-slate-500 rounded-md hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition text-white font-semibold"
                         title="Edit Student"
                       >
@@ -238,7 +261,67 @@ const EducatorPortalForm = () => {
         white
       </form>
 
-      {/* Confirmation Modal */}
+      {/* Edit student Modal */}
+      {showEditModal && editStudent && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+          <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
+            <h2 className="text-xl font-semibold mb-4 text-white">Edit Student</h2>
+            <div className="space-y-4">
+              <input
+                type="text"
+                value={editStudent.firstName}
+                onChange={(e) => setEditStudent({ ...editStudent, firstName: e.target.value })}
+                className="w-full p-2 border rounded"
+                placeholder="First Name"
+              />
+              <input
+                type="text"
+                value={editStudent.lastName}
+                onChange={(e) => setEditStudent({ ...editStudent, lastName: e.target.value })}
+                className="w-full p-2 border rounded"
+                placeholder="Last Name"
+              />
+              <input
+                type="number"
+                value={editStudent.age}
+                onChange={(e) => setEditStudent({ ...editStudent, age: Number(e.target.value) })}
+                className="w-full p-2 border rounded"
+                placeholder="Age"
+              />
+              <input
+                type="number"
+                value={editStudent.grade}
+                onChange={(e) => setEditStudent({ ...editStudent, grade: Number(e.target.value) })}
+                className="w-full p-2 border rounded"
+                placeholder="Grade"
+              />
+              <input
+                type="text"
+                value={editStudent.institution}
+                onChange={(e) => setEditStudent({ ...editStudent, institution: e.target.value })}
+                className="w-full p-2 border rounded"
+                placeholder="Institution"
+              />
+            </div>
+            <div className="flex justify-end mt-6 space-x-3">
+              <button
+                onClick={() => {
+                  setShowEditModal(false);
+                  setEditStudent(null);
+                }}
+                className="cursor-pointer px-4 py-2 bg-gray-500 rounded-md text-white"
+              >
+                Cancel
+              </button>
+              <button onClick={handleSaveEdit} className="cursor-pointer px-4 py-2 bg-blue-600 rounded-md text-white">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
       {showConfirm && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
           <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
