@@ -125,7 +125,7 @@ const EducatorPortalForm = () => {
         <button
           onClick={handleAddStudent}
           className="cursor-pointer px-4 py-2 bg-slate-700 text-white rounded-md border border-slate-600 
-               hover:bg-slate-600 transition-colors"
+               hover:bg-slate-800 transition-colors"
         >
           Add Student
         </button>
@@ -133,7 +133,7 @@ const EducatorPortalForm = () => {
         <button
           onClick={handleLogout}
           className="cursor-pointer px-4 py-2 bg-slate-700 text-white rounded-md border border-slate-600 
-               hover:bg-slate-600 transition-colors"
+               hover:bg-slate-800 transition-colors"
         >
           Logout
         </button>

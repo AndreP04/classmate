@@ -61,6 +61,11 @@ const AdminPortalForm = () => {
     }
   };
 
+  // Add educator route logic
+  const handleAddEducator = async () => {
+    router.push("/add/educator");
+  };
+
   // Logout endpoint
   const handleLogout = async () => {
     try {
@@ -110,12 +115,19 @@ const AdminPortalForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#349495] via-gray-600 to-[#349495] text-slate-100 py-10 px-6 sm:px-12">
-      {/* Logout button */}
-      <div className="flex justify-end mb-6">
+      {/* Add Educator and Logout button */}
+      <div className="flex justify-end mb-6 space-x-4">
+        <button
+          onClick={handleAddEducator}
+          className="cursor-pointer px-4 py-2 bg-slate-700 text-white rounded-md border border-slate-600 
+               hover:bg-slate-800 transition-colors"
+        >
+          Add Educator
+        </button>
         <button
           onClick={handleLogout}
           className="cursor-pointer px-4 py-2 bg-slate-700 text-white rounded-md border border-slate-600 
-               hover:bg-slate-600 transition-colors"
+               hover:bg-slate-800 transition-colors"
         >
           Logout
         </button>
