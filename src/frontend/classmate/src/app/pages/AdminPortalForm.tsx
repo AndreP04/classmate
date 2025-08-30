@@ -109,7 +109,7 @@ const AdminPortalForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#349495] via-gray-400 to-[#349495] text-slate-100 py-10 px-6 sm:px-12">
+    <div className="min-h-screen bg-gradient-to-br from-[#349495] via-gray-600 to-[#349495] text-slate-100 py-10 px-6 sm:px-12">
       {/* Logout button */}
       <div className="flex justify-end mb-6">
         <button
@@ -195,7 +195,7 @@ const AdminPortalForm = () => {
                           e.preventDefault();
                           openEditModal(educator);
                         }}
-                        className="cursor-pointer flex items-center justify-center gap-1 px-3 py-2 bg-slate-500 rounded-md hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition text-white font-semibold"
+                        className="cursor-pointer flex items-center justify-center gap-1 px-3 py-2 bg-slate-500 rounded-md hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition text-white font-semibold"
                         title="Edit Educator"
                       >
                         <PencilIcon className="h-5 w-5" />
@@ -223,12 +223,13 @@ const AdminPortalForm = () => {
         </div>
       </form>
 
-      {/* Edit student Modal */}
+      {/* Edit educator Modal */}
       {showEditModal && editEducator && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
           <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
-            <h2 className="text-xl font-semibold mb-4 text-white">Edit Student</h2>
+            <h2 className="text-3xl font-semibold mb-4 text-white">Edit Educator</h2>
             <div className="space-y-4">
+              <h3 className="text-left">First Name</h3>
               <input
                 type="text"
                 value={editEducator.firstName}
@@ -236,6 +237,7 @@ const AdminPortalForm = () => {
                 className="w-full p-2 border rounded"
                 placeholder="First Name"
               />
+              <h3 className="text-left">Last Name</h3>
               <input
                 type="text"
                 value={editEducator.lastName}
@@ -243,6 +245,7 @@ const AdminPortalForm = () => {
                 className="w-full p-2 border rounded"
                 placeholder="Last Name"
               />
+              <h3 className="text-left">Institution Name</h3>
               <input
                 type="text"
                 value={editEducator.institution}
@@ -250,6 +253,7 @@ const AdminPortalForm = () => {
                 className="w-full p-2 border rounded"
                 placeholder="Institution"
               />
+              <h3 className="text-left">Email Address</h3>
               <input
                 type="email"
                 value={editEducator.email}
