@@ -13,6 +13,8 @@ const AddStudentForm = () => {
   const [age, setAge] = useState("");
   const [grade, setGrade] = useState("");
   const [institution, setInstitution] = useState("");
+  const [guardian1, setGuardian1] = useState({ name: "", phone: "", relationship: "" });
+  const [guardian2, setGuardian2] = useState({ name: "", phone: "", relationship: "" });
   const [showSuccess, setShowSuccess] = useState(false);
 
   // Modal
@@ -23,6 +25,7 @@ const AddStudentForm = () => {
   // Add student endpoint
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const guardians = [guardian1, guardian2];
 
     try {
       await instance.post("/classmate/educator/register-student", {
@@ -30,7 +33,8 @@ const AddStudentForm = () => {
         lastName,
         age,
         grade,
-        institution
+        institution,
+        guardians
       });
 
       // Show modal
@@ -97,6 +101,53 @@ const AddStudentForm = () => {
           required
         />
 
+        {/* Guardian 1 */}
+        <input
+          type="text"
+          placeholder="Guardian 1 Name"
+          className="w-full p-3 border rounded text-gray-700"
+          value={guardian1.name}
+          onChange={(e) => setGuardian1({ ...guardian1, name: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Guardian 1 Phone Number"
+          className="w-full p-3 border rounded text-gray-700"
+          value={guardian1.phone}
+          onChange={(e) => setGuardian1({ ...guardian1, phone: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Guardian 1 Relationship"
+          className="w-full p-3 border rounded text-gray-700"
+          value={guardian1.relationship}
+          onChange={(e) => setGuardian1({ ...guardian1, relationship: e.target.value })}
+        />
+
+        {/* Guardian 2 */}
+        <input
+          type="text"
+          placeholder="Guardian 2 Name"
+          className="w-full p-3 border rounded text-gray-700"
+          value={guardian2.name}
+          onChange={(e) => setGuardian2({ ...guardian2, name: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Guardian 2 Phone Number"
+          className="w-full p-3 border rounded text-gray-700"
+          value={guardian2.phone}
+          onChange={(e) => setGuardian2({ ...guardian2, phone: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Guardian 2 Relationship"
+          className="w-full p-3 border rounded text-gray-700"
+          value={guardian2.relationship}
+          onChange={(e) => setGuardian2({ ...guardian2, relationship: e.target.value })}
+        />
         <button type="submit" className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
           Register student
         </button>
