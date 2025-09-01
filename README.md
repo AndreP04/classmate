@@ -6,7 +6,7 @@ ClassMate is a web-based management platform designed to streamline student and 
 
 ## 🚀 Features
 
-- User Authentication (Admin and Educators)
+- User Authentication using JWT tokens (Admin and Educators)
 - Educator Portal for managing students
 - Admin Portal for managing educators
 
@@ -15,6 +15,7 @@ ClassMate is a web-based management platform designed to streamline student and 
 ## 🛠️ Tech Stack
 
 ### 💻 Frontend:
+- React
 - Next.js
 - Tailwind CSS
 
@@ -22,5 +23,10 @@ ClassMate is a web-based management platform designed to streamline student and 
 - Node.js
 - Express.js
 - MongoDB
+
+---
+
+## 📄 License
+MIT License
 
 ---
