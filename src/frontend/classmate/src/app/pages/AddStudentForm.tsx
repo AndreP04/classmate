@@ -22,6 +22,11 @@ const AddStudentForm = () => {
     router.push("/portals/educator");
   };
 
+  // Return to portal button
+  const routeToPortal = () => {
+    router.push("/portals/educator");
+  };
+
   // Add student endpoint
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,112 +53,122 @@ const AddStudentForm = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       {/* Student Register Form */}
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto p-8 bg-[#f5f5f6] rounded-2xl shadow space-y-4">
-        {/* Logo Image */}
-        <Link href="/">
-          <Image className="mx-auto border rounded-lg cursor-pointer" src="/LoginLogo.PNG" alt="ClassMate Logo" width={900} height={200} />
-        </Link>
-
+      <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-8 bg-[#f5f5f6] rounded-2xl shadow space-y-6">
         <h1 className="text-3xl font-bold text-center text-gray-700">Register a student</h1>
 
-        <input
-          type="text"
-          placeholder="First Name"
-          className="w-full p-3 border rounded text-gray-700"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <input
+            type="text"
+            placeholder="First Name"
+            className="p-3 border rounded text-gray-700"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
 
-        <input
-          type="text"
-          placeholder="Last Name"
-          className="w-full p-3 border rounded text-gray-700"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
+          <input
+            type="text"
+            placeholder="Last Name"
+            className="p-3 border rounded text-gray-700"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
 
-        <input
-          type="text"
-          placeholder="Age"
-          className="w-full p-3 border rounded text-gray-700"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-          required
-        />
+          <input
+            type="text"
+            placeholder="Age"
+            className="p-3 border rounded text-gray-700"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            required
+          />
 
-        <input
-          type="text"
-          placeholder="Grade"
-          className="w-full p-3 border rounded text-gray-700"
-          value={grade}
-          onChange={(e) => setGrade(e.target.value)}
-          required
-        />
+          <input
+            type="text"
+            placeholder="Grade"
+            className="p-3 border rounded text-gray-700"
+            value={grade}
+            onChange={(e) => setGrade(e.target.value)}
+            required
+          />
 
-        <input
-          type="text"
-          placeholder="Institution"
-          className="w-full p-3 border rounded text-gray-700"
-          value={institution}
-          onChange={(e) => setInstitution(e.target.value)}
-          required
-        />
+          <input
+            type="text"
+            placeholder="Institution"
+            className="col-span-2 p-3 border rounded text-gray-700"
+            value={institution}
+            onChange={(e) => setInstitution(e.target.value)}
+            required
+          />
 
-        {/* Guardian 1 */}
-        <input
-          type="text"
-          placeholder="Guardian 1 Name"
-          className="w-full p-3 border rounded text-gray-700"
-          value={guardian1.name}
-          onChange={(e) => setGuardian1({ ...guardian1, name: e.target.value })}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Guardian 1 Phone Number"
-          className="w-full p-3 border rounded text-gray-700"
-          value={guardian1.phone}
-          onChange={(e) => setGuardian1({ ...guardian1, phone: e.target.value })}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Guardian 1 Relationship"
-          className="w-full p-3 border rounded text-gray-700"
-          value={guardian1.relationship}
-          onChange={(e) => setGuardian1({ ...guardian1, relationship: e.target.value })}
-        />
+          {/* Guardian 1 */}
+          <input
+            type="text"
+            placeholder="Guardian 1 Name"
+            className="p-3 border rounded text-gray-700"
+            value={guardian1.name}
+            onChange={(e) => setGuardian1({ ...guardian1, name: e.target.value })}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Guardian 1 Phone"
+            className="p-3 border rounded text-gray-700"
+            value={guardian1.phone}
+            onChange={(e) => setGuardian1({ ...guardian1, phone: e.target.value })}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Guardian 1 Relationship"
+            className="col-span-2 p-3 border rounded text-gray-700"
+            value={guardian1.relationship}
+            onChange={(e) => setGuardian1({ ...guardian1, relationship: e.target.value })}
+          />
 
-        {/* Guardian 2 */}
-        <input
-          type="text"
-          placeholder="Guardian 2 Name"
-          className="w-full p-3 border rounded text-gray-700"
-          value={guardian2.name}
-          onChange={(e) => setGuardian2({ ...guardian2, name: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Guardian 2 Phone Number"
-          className="w-full p-3 border rounded text-gray-700"
-          value={guardian2.phone}
-          onChange={(e) => setGuardian2({ ...guardian2, phone: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Guardian 2 Relationship"
-          className="w-full p-3 border rounded text-gray-700"
-          value={guardian2.relationship}
-          onChange={(e) => setGuardian2({ ...guardian2, relationship: e.target.value })}
-        />
-        <button type="submit" className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
-          Register student
-        </button>
+          {/* Guardian 2 */}
+          <input
+            type="text"
+            placeholder="Guardian 2 Name"
+            className="p-3 border rounded text-gray-700"
+            value={guardian2.name}
+            onChange={(e) => setGuardian2({ ...guardian2, name: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Guardian 2 Phone"
+            className="p-3 border rounded text-gray-700"
+            value={guardian2.phone}
+            onChange={(e) => setGuardian2({ ...guardian2, phone: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Guardian 2 Relationship"
+            className="col-span-2 p-3 border rounded text-gray-700"
+            value={guardian2.relationship}
+            onChange={(e) => setGuardian2({ ...guardian2, relationship: e.target.value })}
+          />
+
+          {/* Buttons */}
+          <button
+            type="submit"
+            className="col-span-2 w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer"
+          >
+            Register student
+          </button>
+
+          <button
+            onClick={routeToPortal}
+            type="button"
+            className="col-span-2 w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer"
+          >
+            Return to portal
+          </button>
+        </div>
       </form>
 
-      {/* Student registration succes modal */}
+      {/* Student registration success modal */}
       {showSuccess && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
           <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
