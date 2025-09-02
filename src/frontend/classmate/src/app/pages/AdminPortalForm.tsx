@@ -12,6 +12,16 @@ const AdminPortalForm = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showEditModal, setShowEditModal] = useState(false);
   const [editEducator, setEditEducator] = useState<any>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const educatorsPerPage = 10;
+
+  // Pagination indices
+  const lastEducatorIndex = currentPage * educatorsPerPage;
+  const firstEducatorIndex = lastEducatorIndex - educatorsPerPage;
+  const currentEducators = educators.slice(firstEducatorIndex, lastEducatorIndex);
+
+  // Total pages
+  const totalPages = Math.ceil(educators.length / educatorsPerPage);
 
   // Fetch all educators on page load
   useEffect(() => {
@@ -184,7 +194,7 @@ const AdminPortalForm = () => {
               </tr>
             </thead>
             <tbody>
-              {educators.map((educator) => (
+              {currentEducators.map((educator) => (
                 <tr key={educator.email} className="border-b border-slate-600 hover:bg-slate-600 transition">
                   <td className="py-4 px-6">{educator.firstName}</td>
                   <td className="py-4 px-6">{educator.lastName}</td>
@@ -223,14 +233,40 @@ const AdminPortalForm = () => {
         {/* Pagination */}
         <div className="flex justify-between items-center mt-6 text-sm text-gray-700">
           <div>
-            Showing <b>1-2</b> of 10
+            Showing{" "}
+            <b>
+              {firstEducatorIndex + 1}-{Math.min(lastEducatorIndex, educators.length)}
+            </b>{" "}
+            of {educators.length}
           </div>
           <div className="flex space-x-2">
-            <button className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition">Prev</button>
-            <button className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition">1</button>
-            <button className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition">2</button>
-            <button className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition">3</button>
-            <button className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition">Next</button>
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition disabled:opacity-50"
+            >
+              Prev
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i + 1}
+                onClick={() => setCurrentPage(i + 1)}
+                className={`cursor-pointer px-3 py-1 rounded-md transition ${
+                  currentPage === i + 1 ? "bg-[#349495] text-white" : "bg-slate-600 hover:bg-slate-700 text-white"
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition disabled:opacity-50"
+            >
+              Next
+            </button>
           </div>
         </div>
       </form>
