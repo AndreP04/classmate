@@ -268,7 +268,7 @@ const EducatorPortalForm = () => {
             <button
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition disabled:opacity-50"
+              className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition disabled:opacity-60"
             >
               Prev
             </button>
@@ -288,7 +288,7 @@ const EducatorPortalForm = () => {
             <button
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-              className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition disabled:opacity-50"
+              className="cursor-pointer px-3 py-1 rounded-md bg-slate-600 hover:bg-slate-700 text-white transition disabled:opacity-60"
             >
               Next
             </button>
