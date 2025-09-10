@@ -25,16 +25,16 @@ const EducatorPortalForm = () => {
   const totalPages = Math.ceil(students.length / studentsPerPage);
 
   // Fetch all students on page load
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const { data } = await instance.get("/classmate/educator/all-students");
-        setStudents(data);
-      } catch (err) {
-        console.error(`Failed to retrieve students: ${err}`);
-      }
-    };
+  const fetchStudents = async () => {
+    try {
+      const { data } = await instance.get("/classmate/educator/all-students");
+      setStudents(data);
+    } catch (err) {
+      console.error(`Failed to retrieve students: ${err}`);
+    }
+  };
 
+  useEffect(() => {
     fetchStudents();
   }, []);
 
@@ -51,8 +51,14 @@ const EducatorPortalForm = () => {
   };
 
   useEffect(() => {
+    if (searchTerm.trim().length === 0) {
+      fetchStudents();
+    }
+  }, [searchTerm]);
+
+  useEffect(() => {
     const delayDebounce = setTimeout(() => {
-      if (searchTerm.trim().length >= 2) {
+      if (searchTerm.trim().length >= 1) {
         searchStudents();
       }
     }, 100);
@@ -165,6 +171,8 @@ const EducatorPortalForm = () => {
               onClick={() => {
                 if (searchTerm.trim()) {
                   searchStudents();
+                } else {
+                  fetchStudents();
                 }
               }}
               className="cursor-pointer absolute top-1.5 right-1.5 h-7 w-7 flex items-center justify-center rounded hover:bg-slate-600 transition"

@@ -24,16 +24,16 @@ const AdminPortalForm = () => {
   const totalPages = Math.ceil(educators.length / educatorsPerPage);
 
   // Fetch all educators on page load
-  useEffect(() => {
-    const fetchEducators = async () => {
-      try {
-        const { data } = await instance.get("/classmate/admin/all-educators");
-        setEducators(data);
-      } catch (err) {
-        console.error(`Failed to retrieve educators: ${err}`);
-      }
-    };
+  const fetchEducators = async () => {
+    try {
+      const { data } = await instance.get("/classmate/admin/all-educators");
+      setEducators(data);
+    } catch (err) {
+      console.error(`Failed to retrieve educators: ${err}`);
+    }
+  };
 
+  useEffect(() => {
     fetchEducators();
   }, []);
 
@@ -50,8 +50,14 @@ const AdminPortalForm = () => {
   };
 
   useEffect(() => {
+    if (searchTerm.trim().length === 0) {
+      fetchEducators();
+    }
+  }, [searchTerm]);
+
+  useEffect(() => {
     const delayDebounce = setTimeout(() => {
-      if (searchTerm.trim().length >= 2) {
+      if (searchTerm.trim().length >= 1) {
         searchEducators();
       }
     }, 100);
@@ -147,6 +153,8 @@ const AdminPortalForm = () => {
               onClick={() => {
                 if (searchTerm.trim()) {
                   searchEducators();
+                } else {
+                  fetchEducators();
                 }
               }}
               className="cursor-pointer absolute top-1.5 right-1.5 h-7 w-7 flex items-center justify-center rounded hover:bg-slate-600 transition"
