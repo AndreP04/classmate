@@ -26,7 +26,19 @@ ClassMate is a web-based management platform designed to streamline student and 
 
 ---
 
-## 📄 License
-MIT License
+## 🎥 Video Walkthrough  
+
+A step-by-step video demo of the project will be added here soon. Stay tuned! 🚀
 
 ---
+
+## 🤝 Contributing
+
+Contributions are welcome! 🎉  
+If you'd like to contribute, feel free to fork the repository and submit a pull request.  
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
