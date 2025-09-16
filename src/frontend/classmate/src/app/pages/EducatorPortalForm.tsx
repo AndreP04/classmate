@@ -309,8 +309,11 @@ const EducatorPortalForm = () => {
       {showEditModal && editStudent && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
           <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
-            <h2 className="text-xl font-semibold mb-4 text-white">Edit Student</h2>
+            <h2 className="text-3xl font-semibold mb-4 text-white">
+              Edit <span className="text-[#349495]">Student</span>
+            </h2>
             <div className="space-y-4">
+              <h3 className="mb-1 text-left font-bold">First Name:</h3>
               <input
                 type="text"
                 value={editStudent.firstName}
@@ -318,6 +321,7 @@ const EducatorPortalForm = () => {
                 className="w-full p-2 border rounded"
                 placeholder="First Name"
               />
+              <h3 className="mb-1 text-left font-bold">Last Name:</h3>
               <input
                 type="text"
                 value={editStudent.lastName}
@@ -325,6 +329,7 @@ const EducatorPortalForm = () => {
                 className="w-full p-2 border rounded"
                 placeholder="Last Name"
               />
+              <h3 className="mb-1 text-left font-bold">Age:</h3>
               <input
                 type="number"
                 value={editStudent.age}
@@ -332,6 +337,7 @@ const EducatorPortalForm = () => {
                 className="w-full p-2 border rounded"
                 placeholder="Age"
               />
+              <h3 className="mb-1 text-left font-bold">Grade:</h3>
               <input
                 type="number"
                 value={editStudent.grade}
@@ -339,6 +345,7 @@ const EducatorPortalForm = () => {
                 className="w-full p-2 border rounded"
                 placeholder="Grade"
               />
+              <h3 className="mb-1 text-left font-bold">Institution:</h3>
               <input
                 type="text"
                 value={editStudent.institution}
@@ -357,7 +364,7 @@ const EducatorPortalForm = () => {
               >
                 Cancel
               </button>
-              <button onClick={handleSaveEdit} className="cursor-pointer px-4 py-2 bg-blue-600 rounded-md text-white">
+              <button onClick={handleSaveEdit} className="cursor-pointer px-4 py-2 bg-[#349495] rounded-md text-white">
                 Save
               </button>
             </div>
@@ -369,7 +376,7 @@ const EducatorPortalForm = () => {
       {showConfirm && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
           <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
-            <h2 className="text-xl font-semibold mb-4 text-white">Are you sure?</h2>
+            <h2 className="text-3xl font-semibold mb-4 text-white">Are you sure?</h2>
             <p className="mb-6 text-slate-300">Are you sure you want to delete this student? This action cannot be undone.</p>
             <div className="flex justify-center space-x-4">
               <button

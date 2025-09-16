@@ -54,7 +54,9 @@ const AddStudentForm = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       {/* Student Register Form */}
       <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-8 bg-[#f5f5f6] rounded-2xl shadow space-y-6">
-        <h1 className="text-3xl font-bold text-center text-gray-700">Register a student</h1>
+        <h1 className="text-5xl font-bold text-center text-gray-700">
+          Register a <span className="text-[#349495]">student</span>
+        </h1>
 
         <div className="grid grid-cols-2 gap-4">
           <input

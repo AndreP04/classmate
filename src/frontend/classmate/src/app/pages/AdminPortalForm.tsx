@@ -271,9 +271,11 @@ const AdminPortalForm = () => {
       {showEditModal && editEducator && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
           <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
-            <h2 className="text-3xl font-semibold mb-4 text-white">Edit Educator</h2>
+            <h2 className="text-3xl font-semibold mb-4 text-white">
+              Edit <span className="text-[#349495]">Educator</span>
+            </h2>
             <div className="space-y-4">
-              <h3 className="text-left">First Name</h3>
+              <h3 className="mb-1 text-left font-bold">First Name:</h3>
               <input
                 type="text"
                 value={editEducator.firstName}
@@ -281,7 +283,7 @@ const AdminPortalForm = () => {
                 className="w-full p-2 border rounded"
                 placeholder="First Name"
               />
-              <h3 className="text-left">Last Name</h3>
+              <h3 className="mb-1 text-left font-bold">Last Name:</h3>
               <input
                 type="text"
                 value={editEducator.lastName}
@@ -289,7 +291,7 @@ const AdminPortalForm = () => {
                 className="w-full p-2 border rounded"
                 placeholder="Last Name"
               />
-              <h3 className="text-left">Institution Name</h3>
+              <h3 className="mb-1 text-left font-bold">Institution:</h3>
               <input
                 type="text"
                 value={editEducator.institution}
@@ -297,7 +299,7 @@ const AdminPortalForm = () => {
                 className="w-full p-2 border rounded"
                 placeholder="Institution"
               />
-              <h3 className="text-left">Email Address</h3>
+              <h3 className="mb-1 text-left font-bold">Email Address:</h3>
               <input
                 type="email"
                 value={editEducator.email}
@@ -316,7 +318,7 @@ const AdminPortalForm = () => {
               >
                 Cancel
               </button>
-              <button onClick={handleSaveEdit} className="cursor-pointer px-4 py-2 bg-blue-600 rounded-md text-white">
+              <button onClick={handleSaveEdit} className="cursor-pointer px-4 py-2 bg-[#349495] rounded-md text-white">
                 Save
               </button>
             </div>
@@ -328,7 +330,7 @@ const AdminPortalForm = () => {
       {showConfirm && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
           <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
-            <h2 className="text-xl font-semibold mb-4 text-white">Are you sure?</h2>
+            <h2 className="text-3xl font-semibold mb-4 text-white">Are you sure?</h2>
             <p className="mb-6 text-slate-300">Do you really want to delete this educator? This action cannot be undone.</p>
             <div className="flex justify-center space-x-4">
               <button
