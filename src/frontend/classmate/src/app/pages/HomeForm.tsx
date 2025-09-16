@@ -5,11 +5,11 @@ import Link from "next/link";
 const HomePage = () => {
   const router = useRouter();
   return (
-    <main className="min-h-screen bg-white text-gray-800">
+    <main className="min-h-screen text-gray-800">
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center py-10 bg-[#f5f5f6]">
         {/* Logo Image */}
-        <Link href="/">
+        <Link href="/" className="w-200">
           <Image className="mx-auto rounded-lg" src="/iconsLogo.png" alt="Home Image" width={500} height={200} />
         </Link>
 

@@ -69,6 +69,12 @@ const LoginForm = () => {
             Forgot password?
           </button>
         </Link>
+
+        <Link href="/auth/register">
+          <button className="mt-4 w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
+            Not a member yet?
+          </button>
+        </Link>
       </form>
     </div>
   );

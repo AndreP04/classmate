@@ -45,12 +45,9 @@ const SignUpForm = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       {/* Register Form */}
       <form onSubmit={handleSubmit} className="max-w-md mx-auto p-8 bg-[#f5f5f6] rounded-2xl shadow space-y-4">
-        {/* Logo Image */}
-        <Link href="/">
-          <Image className="mx-auto border rounded-lg cursor-pointer" src="/LoginLogo.PNG" alt="ClassMate Logo" width={900} height={200} />
-        </Link>
-
-        <h1 className="text-3xl font-bold text-center text-gray-700">Welcome to ClassMate</h1>
+        <h1 className="text-5xl font-bold text-center text-gray-700">
+          Welcome to <span className="text-[#349495]">ClassMate</span>
+        </h1>
 
         <input
           type="text"
@@ -103,7 +100,7 @@ const SignUpForm = () => {
 
         <Link href="/auth/login">
           <button className="w-full bg-[#349495] text-white p-3 rounded hover:bg-[#287273] transition cursor-pointer">
-            Already a member? Log In
+            Already a member?
           </button>
         </Link>
       </form>
