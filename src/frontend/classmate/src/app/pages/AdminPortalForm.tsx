@@ -326,7 +326,7 @@ const AdminPortalForm = () => {
         </div>
       )}
 
-      {/* Confirmation Modal */}
+      {/* Deletion Confirmation Modal */}
       {showConfirm && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
           <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
