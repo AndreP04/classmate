@@ -1,13 +1,33 @@
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const HomePage = () => {
   const router = useRouter();
+  const [text, setText] = useState("");
+  const fullText = "Welcome to ClassMate";
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setText(fullText.slice(0, i + 1));
+      i++;
+      if (i === fullText.length) clearInterval(interval);
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center text-gray-800 bg-[#f5f5f6]">
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center py-10 bg-[#f5f5f6]">
         <h1 className="text-8xl font-bold mb-6">
-          Welcome to <span className="text-[#349495]">ClassMate</span>
+          {text.includes("ClassMate") ? (
+            <>
+              Welcome to <span className="text-[#349495]">ClassMate</span>
+            </>
+          ) : (
+            text
+          )}
         </h1>
         <p className="text-2xl max-w-xl mb-8">A modern tool for educators to manage student information efficiently and securely.</p>
         <div className="space-x-4">
