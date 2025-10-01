@@ -1,9 +1,9 @@
 "use client";
-import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import instance from "@/lib/axios";
 import Link from "next/link";
+import { HomeIcon } from "@heroicons/react/24/solid";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -33,6 +33,9 @@ const LoginForm = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      <Link href="/" className="absolute top-6 right-6 p-3 rounded-lg bg-[#f5f5f6] hover:bg-slate-700 transition">
+        <HomeIcon className="w-6 h-6 text-[#349495]" />
+      </Link>
       {/* Login Form */}
       <form onSubmit={handleSubmit} className="max-w-md mx-auto p-8 bg-[#f5f5f6] rounded-2xl shadow space-y-4">
         <h1 className="text-5xl font-bold text-center text-gray-700 mb-8">
