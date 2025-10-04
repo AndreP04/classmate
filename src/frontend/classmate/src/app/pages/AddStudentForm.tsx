@@ -107,7 +107,7 @@ const AddStudentForm = () => {
           {/* Guardian 1 */}
           <input
             type="text"
-            placeholder="Guardian 1 Name"
+            placeholder="Guardian Name"
             className="p-3 border rounded text-gray-700"
             value={guardian1.name}
             onChange={(e) => setGuardian1({ ...guardian1, name: e.target.value })}
@@ -115,7 +115,7 @@ const AddStudentForm = () => {
           />
           <input
             type="text"
-            placeholder="Guardian 1 Phone"
+            placeholder="Guardian Phone"
             className="p-3 border rounded text-gray-700"
             value={guardian1.phone}
             onChange={(e) => setGuardian1({ ...guardian1, phone: e.target.value })}
@@ -123,7 +123,7 @@ const AddStudentForm = () => {
           />
           <input
             type="text"
-            placeholder="Guardian 1 Relationship"
+            placeholder="Guardian Relationship"
             className="col-span-2 p-3 border rounded text-gray-700"
             value={guardian1.relationship}
             onChange={(e) => setGuardian1({ ...guardian1, relationship: e.target.value })}
@@ -132,21 +132,21 @@ const AddStudentForm = () => {
           {/* Guardian 2 */}
           <input
             type="text"
-            placeholder="Guardian 2 Name"
+            placeholder="Guardian Name"
             className="p-3 border rounded text-gray-700"
             value={guardian2.name}
             onChange={(e) => setGuardian2({ ...guardian2, name: e.target.value })}
           />
           <input
             type="text"
-            placeholder="Guardian 2 Phone"
+            placeholder="Guardian Phone"
             className="p-3 border rounded text-gray-700"
             value={guardian2.phone}
             onChange={(e) => setGuardian2({ ...guardian2, phone: e.target.value })}
           />
           <input
             type="text"
-            placeholder="Guardian 2 Relationship"
+            placeholder="Guardian Relationship"
             className="col-span-2 p-3 border rounded text-gray-700"
             value={guardian2.relationship}
             onChange={(e) => setGuardian2({ ...guardian2, relationship: e.target.value })}

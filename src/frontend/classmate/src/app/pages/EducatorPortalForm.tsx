@@ -157,7 +157,7 @@ const EducatorPortalForm = () => {
       <form className="max-w-7xl mx-auto bg-[#f5f5f6] rounded-xl shadow-lg p-8">
         {/* Header and search */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
-          <h3 className="text-gray-700 text-4xl font-extrabold tracking-tight">Students</h3>
+          <h3 className="text-gray-700 text-5xl font-extrabold tracking-tight">Students</h3>
           <div className="mt-4 sm:mt-0 w-full sm:w-64 relative">
             <input
               type="text"
