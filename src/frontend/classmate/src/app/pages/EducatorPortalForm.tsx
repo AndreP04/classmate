@@ -308,7 +308,7 @@ const EducatorPortalForm = () => {
       {/* Edit student Modal */}
       {showEditModal && editStudent && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
-          <div className="bg-slate-800 rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
+          <div className="bg-slate-800 rounded-lg shadow-xl max-w-2xl w-full p-6 text-center overflow-y-auto max-h-[90vh]">
             <h2 className="text-3xl font-semibold mb-4 text-white">
               Edit <span className="text-[#349495]">Student</span>
             </h2>
@@ -353,6 +353,66 @@ const EducatorPortalForm = () => {
                 className="w-full p-2 border rounded"
                 placeholder="Institution"
               />
+
+              <div className="flex flex-col md:flex-row gap-4">
+                {/* Guardian 1 */}
+                <div className="w-full md:w-1/2 space-y-2">
+                  <h3 className="mb-1 text-left font-bold text-white">Guardian 1</h3>
+
+                  <input
+                    type="text"
+                    value={editStudent.guardian1Name}
+                    onChange={(e) => setEditStudent({ ...editStudent, guardian1Name: e.target.value })}
+                    className="w-full p-2 border rounded"
+                    placeholder="Guardian 1 Name"
+                  />
+
+                  <input
+                    type="text"
+                    value={editStudent.guardian1Relationship}
+                    onChange={(e) => setEditStudent({ ...editStudent, guardian1Relationship: e.target.value })}
+                    className="w-full p-2 border rounded"
+                    placeholder="Guardian 1 Relationship"
+                  />
+
+                  <input
+                    type="text"
+                    value={editStudent.guardian1Phone}
+                    onChange={(e) => setEditStudent({ ...editStudent, guardian1Phone: e.target.value })}
+                    className="w-full p-2 border rounded"
+                    placeholder="Guardian 1 Phone"
+                  />
+                </div>
+
+                {/* Guardian 2 */}
+                <div className="w-full md:w-1/2 space-y-2">
+                  <h3 className="mb-1 text-left font-bold text-white">Guardian 2</h3>
+
+                  <input
+                    type="text"
+                    value={editStudent.guardian2Name}
+                    onChange={(e) => setEditStudent({ ...editStudent, guardian2Name: e.target.value })}
+                    className="w-full p-2 border rounded"
+                    placeholder="Guardian 2 Name"
+                  />
+
+                  <input
+                    type="text"
+                    value={editStudent.guardian2Relationship}
+                    onChange={(e) => setEditStudent({ ...editStudent, guardian2Relationship: e.target.value })}
+                    className="w-full p-2 border rounded"
+                    placeholder="Guardian 2 Relationship"
+                  />
+
+                  <input
+                    type="text"
+                    value={editStudent.guardian2Phone}
+                    onChange={(e) => setEditStudent({ ...editStudent, guardian2Phone: e.target.value })}
+                    className="w-full p-2 border rounded"
+                    placeholder="Guardian 2 Phone"
+                  />
+                </div>
+              </div>
             </div>
             <div className="flex justify-end mt-6 space-x-3">
               <button

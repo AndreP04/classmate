@@ -107,7 +107,7 @@ const AddStudentForm = () => {
           {/* Guardian 1 */}
           <input
             type="text"
-            placeholder="Guardian Name"
+            placeholder="Guardian First Name"
             className="p-3 border rounded text-gray-700"
             value={guardian1.name}
             onChange={(e) => setGuardian1({ ...guardian1, name: e.target.value })}
@@ -132,7 +132,7 @@ const AddStudentForm = () => {
           {/* Guardian 2 */}
           <input
             type="text"
-            placeholder="Guardian Name"
+            placeholder="Guardian First Name"
             className="p-3 border rounded text-gray-700"
             value={guardian2.name}
             onChange={(e) => setGuardian2({ ...guardian2, name: e.target.value })}
